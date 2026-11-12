@@ -3,50 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOOR Home Appliances — Live Cloud Sync</title>
+    <title>NOOR Home Appliances — Live Cloud Synced Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDKs for Real-Time Firestore Sync -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // TODO: Replace with your Firebase Project Configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "SENDER_ID",
-            appId: "APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Real-time listener for Products
-        onSnapshot(collection(db, "products"), (snapshot) => {
-            let products = [];
-            snapshot.forEach((doc) => {
-                products.push({ id: doc.id, ...doc.data() });
-            });
-            window.renderLiveProducts(products);
-        });
-
-        // Real-time listener for Bank Accounts
-        onSnapshot(collection(db, "bankAccounts"), (snapshot) => {
-            let banks = [];
-            snapshot.forEach((doc) => {
-                banks.push({ id: doc.id, ...doc.data() });
-            });
-            window.renderLiveBanks(banks);
-        });
-
-        window.db = db;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.deleteDoc = deleteDoc;
-        window.doc = doc;
-    </script>
     <style>
         .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
@@ -111,10 +69,10 @@
                         YOUR HOME, OUR PRIORITY
                     </span>
                     <h2 class="text-4xl sm:text-5xl font-black text-blue-900 mt-4 mb-4 leading-tight">
-                        Cloud-Synced <span class="text-blue-600">Home Appliances</span> Store
+                        Premium Quality <span class="text-blue-600">Home Appliances</span> For Your Home
                     </h2>
                     <p class="text-gray-600 text-base mb-8">
-                        Discover electric heaters, air coolers, washing machines, and geysers with real-time cloud data updates.
+                        Discover electric heaters, AC/DC air coolers, fans, stoves, geysers and washing machines at NOOR Home Appliances, Daska, Sialkot, Pakistan.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <button onclick="switchTab('categories')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all">
@@ -159,7 +117,7 @@
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">ABOUT OUR BUSINESS</span>
                 <h2 class="text-3xl font-black text-blue-900 mt-1 mb-4">Welcome to NOOR Home Appliances</h2>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                    NOOR Home Appliances serves customers in Daska and nearby areas with a range of home appliance categories.
+                    NOOR Home Appliances serves customers in Daska and nearby areas with a range of home appliance categories. Our aim is to help customers explore suitable products and get information about models, prices and availability.
                 </p>
             </div>
         </div>
@@ -241,13 +199,52 @@
         <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced.</p>
     </footer>
 
-    <!-- Frontend Sync Logic -->
-    <script>
-        let cachedProducts = [];
-        let cachedBanks = [];
+    <!-- Firebase SDK Script Tag Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv0c9tZyWX5Wy6GZ5e-vLpVQWM3xFELJk",
+            authDomain: "noorhomeappliances-d46f8.firebaseapp.com",
+            projectId: "noorhomeappliances-d46f8",
+            storageBucket: "noorhomeappliances-d46f8.appspot.com",
+            messagingSenderId: "525504102679",
+            appId: "1:525504102679:web:3f98914a272a2c4f783752",
+            measurementId: "G-V829VYR101"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Real-time listener for Products
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            let products = [];
+            snapshot.forEach((docSnap) => {
+                products.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            window.renderLiveProducts(products);
+        });
+
+        // Real-time listener for Bank Accounts
+        onSnapshot(collection(db, "bankAccounts"), (snapshot) => {
+            let banks = [];
+            snapshot.forEach((docSnap) => {
+                banks.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            window.renderLiveBanks(banks);
+        });
+
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.deleteDoc = deleteDoc;
+        window.doc = doc;
+    </script>
+
+    <!-- Frontend UI & Logic -->
+    <script>
         window.renderLiveProducts = function(products) {
-            cachedProducts = products;
             const grid = document.getElementById('product-grid');
             const adminList = document.getElementById('admin-products-list');
             const catGrid = document.getElementById('categories-grid');
@@ -297,7 +294,6 @@
         }
 
         window.renderLiveBanks = function(banks) {
-            cachedBanks = banks;
             const list = document.getElementById('bank-list');
             let html = '';
             banks.forEach(b => {
@@ -330,7 +326,7 @@
 
             let imgSrc = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
             if (fileInput.files && fileInput.files[0]) {
-                imgSrc = URL.createObjectURL(fileInput.files[0]); // Converts file to temporary URL for cloud
+                imgSrc = URL.createObjectURL(fileInput.files[0]);
             }
 
             try {
