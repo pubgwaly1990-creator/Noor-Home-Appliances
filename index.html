@@ -1,28 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noor Home Appliances — Real Product Images Catalog</title>
+    <title>NOOR Home Appliances — Daska, Sialkot, Pakistan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        forest: { 800: '#064e3b', 900: '#022c22', 950: '#011c14' },
-                        gold: { 400: '#facc15', 500: '#eab308', 600: '#ca8a04' }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
         .click-circle {
-            position: absolute; width: 20px; height: 20px; border: 2px solid #eab308; border-radius: 50%;
+            position: absolute; width: 20px; height: 20px; border: 2px solid #2563eb; border-radius: 50%;
             transform: translate(-50%, -50%); pointer-events: none; animation: ping-expand 0.6s ease-out forwards; z-index: 9999;
         }
         @keyframes ping-expand {
@@ -31,397 +18,252 @@
         }
     </style>
 </head>
-<body class="bg-forest-950 text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
 
-    <!-- Top Header & Navigation -->
-    <header class="bg-forest-900 border-b border-forest-800 sticky top-0 z-50 shadow-md">
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center font-black text-forest-950 text-xl shadow-lg shadow-gold-500/20">NH</div>
+                <div class="w-12 h-12 rounded-full border-2 border-blue-600 overflow-hidden flex items-center justify-center bg-blue-50">
+                    <span class="font-black text-blue-700 text-lg">NH</span>
+                </div>
                 <div>
-                    <h1 class="text-lg font-black tracking-wider text-white leading-none">NOOR HOME APPLIANCES</h1>
-                    <p class="text-[10px] text-gold-400 font-bold tracking-widest uppercase mt-1">Pakistan-Wide Cash on Delivery</p>
+                    <h1 class="text-lg font-black tracking-wider text-blue-900 leading-none">NOOR</h1>
+                    <p class="text-[9px] font-bold text-gray-500 tracking-widest uppercase mt-0.5">HOME APPLIANCES</p>
                 </div>
             </div>
 
-            <nav class="hidden md:flex space-x-2">
-                <button onclick="switchTab('home')" id="btn-home" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold bg-gold-500 text-forest-950 transition-all shadow-sm">Home</button>
-                <button onclick="switchTab('catalog')" id="btn-catalog" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white transition-all">Catalog (50+)</button>
-                <button onclick="switchTab('cart')" id="btn-cart" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white transition-all flex items-center gap-1.5">
-                    <span>🛒 Cart</span>
-                    <span id="cart-badge" class="bg-gold-500 text-forest-950 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
-                </button>
-                <button onclick="switchTab('tracking')" id="btn-tracking" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white transition-all">Track Order</button>
-                <button onclick="switchTab('contact')" id="btn-contact" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white transition-all">Contact Us</button>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-700">
+                <button onclick="switchTab('home')" id="btn-home" class="tab-btn text-blue-600 transition-colors">Home</button>
+                <button onclick="switchTab('categories')" id="btn-categories" class="tab-btn hover:text-blue-600 transition-colors">Categories</button>
+                <button onclick="switchTab('about')" id="btn-about" class="tab-btn hover:text-blue-600 transition-colors">About Us</button>
+                <button onclick="switchTab('contact')" id="btn-contact" class="tab-btn hover:text-blue-600 transition-colors">Contact</button>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <a href="https://wa.me/923028372072" target="_blank" class="hidden sm:flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-lg">
-                    <span>💬 WhatsApp Support</span>
+            <div>
+                <a href="https://wa.me/923167407408?text=Assalam-o-Alaikum,%20I%20want%20to%20inquire%20about%20Noor%20Home%20Appliances" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all">
+                    <span>💬 Chat on WhatsApp</span>
                 </a>
-                <button onclick="openAdminPanel()" class="bg-forest-800 hover:bg-forest-700 text-gold-400 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-bold transition-all">
-                    🔒 Admin (7866)
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Floating WhatsApp Direct Button -->
+    <!-- Floating WhatsApp Button -->
     <div class="fixed bottom-6 left-6 z-50">
-        <a href="https://wa.me/923028372072?text=Assalam-o-Alaikum,%20I%20want%20to%20order%20from%20Noor%20Home%20Appliances" target="_blank" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl transition-transform hover:scale-110">
+        <a href="https://wa.me/923167407408" target="_blank" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center text-3xl shadow-xl transition-transform hover:scale-110">
             💬
         </a>
     </div>
 
-    <!-- Main Dynamic Content Area -->
+    <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
 
         <!-- HOME TAB -->
         <div id="home" class="tab-content active">
-            <div class="bg-gradient-to-r from-forest-900 to-forest-800 border border-gold-500/30 rounded-3xl p-8 sm:p-12 mb-12 shadow-2xl relative overflow-hidden">
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
-                        🇵🇰 Deliver All Over Pakistan • Cash on Delivery
+            <!-- Hero Banner 1 -->
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 sm:p-12 mb-12 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                        YOUR HOME, OUR PRIORITY
                     </span>
-                    <h2 class="text-4xl sm:text-5xl font-black text-white mt-4 mb-4 leading-tight">
-                        Real Products & Real Quality at <span class="text-gold-400">Noor Appliances</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-blue-900 mt-4 mb-4 leading-tight">
+                        Premium Quality <span class="text-blue-600">Home Appliances</span> For Your Home
                     </h2>
-                    <p class="text-gray-300 text-base mb-8">
-                        Browse our massive collection of home appliances with professional product imagery and 1 year warranty.
+                    <p class="text-gray-600 text-base mb-8">
+                        Discover electric heaters, AC/DC air coolers, fans, stoves, geysers and washing machines at NOOR Home Appliances, Daska, Sialkot, Pakistan[cite: 8].
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <button onclick="switchTab('catalog')" class="bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg">
-                            View 50+ Catalog →
+                        <button onclick="switchTab('categories')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all">
+                            Explore Products →
                         </button>
-                        <a href="https://wa.me/923028372072" target="_blank" class="bg-forest-950 border border-forest-700 hover:border-gold-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all">
-                            WhatsApp Quick Order
+                        <a href="https://wa.me/923167407408" target="_blank" class="bg-gray-100 border border-gray-200 text-gray-700 hover:border-blue-500 font-bold px-6 py-3 rounded-xl transition-all">
+                            Chat on WhatsApp
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- CATALOG TAB (50+ PRODUCTS WITH REAL IMAGES) -->
-        <div id="catalog" class="tab-content">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                <div>
-                    <h2 class="text-3xl font-black text-white">Complete Products Catalog (50+ Items)</h2>
-                    <p class="text-gray-400 text-sm">Real high-resolution appliance imagery across all categories.</p>
-                </div>
-                <div class="w-full sm:w-auto">
-                    <input type="text" id="search-input" placeholder="Search any appliance..." onkeyup="filterProducts()" class="bg-forest-900 border border-forest-800 text-sm rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-gold-500 w-full sm:w-72">
-                </div>
-            </div>
-
-            <!-- Grid rendered via JavaScript with Real Images -->
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </div>
-
-        <!-- CART & CHECKOUT TAB -->
-        <div id="cart" class="tab-content">
-            <div class="max-w-2xl mx-auto bg-forest-900 border border-forest-800 rounded-3xl p-8 shadow-2xl">
-                <h2 class="text-2xl font-black text-white mb-6">Shopping Cart & COD Checkout</h2>
-                <div id="cart-items" class="space-y-4 mb-6">
-                    <p class="text-gray-400 text-sm">Your cart is currently empty.</p>
-                </div>
-                <div class="border-t border-forest-800 pt-4 mb-6 space-y-2">
-                    <div class="flex justify-between text-gray-300 text-sm">
-                        <span>Delivery (All Over Pakistan):</span>
-                        <span class="font-bold text-gold-400">RS. 500</span>
-                    </div>
-                    <div class="flex justify-between text-xl font-black text-white">
-                        <span>Total Payable:</span>
-                        <span id="cart-total" class="text-gold-400">RS. 500</span>
+                <div class="bg-blue-50/50 rounded-2xl p-6 border border-blue-100 flex items-center justify-center">
+                    <div class="text-center space-y-2">
+                        <div class="text-5xl">⚡🏠</div>
+                        <h3 class="font-bold text-blue-900 text-lg">NOOR Home Appliances</h3>
+                        <p class="text-xs text-gray-500">📍 Daska, Sialkot, Pakistan[cite: 8]</p>
                     </div>
                 </div>
-                <div class="space-y-4">
-                    <h3 class="font-bold text-white text-lg">Customer Shipping Details</h3>
-                    <div><label class="block text-xs text-gray-400 mb-1">Full Name</label><input type="text" id="cust-name" placeholder="e.g. Usman Butt" class="w-full bg-forest-950 border border-forest-800 rounded-xl px-4 py-3 text-white text-sm"></div>
-                    <div><label class="block text-xs text-gray-400 mb-1">Phone Number</label><input type="text" id="cust-phone" placeholder="03028372072" class="w-full bg-forest-950 border border-forest-800 rounded-xl px-4 py-3 text-white text-sm"></div>
-                    <div><label class="block text-xs text-gray-400 mb-1">Complete Address & City</label><textarea id="cust-address" placeholder="House #, Street, City" rows="3" class="w-full bg-forest-950 border border-forest-800 rounded-xl px-4 py-3 text-white text-sm"></textarea></div>
-                    <div class="bg-forest-950 border border-gold-500/30 p-4 rounded-xl text-xs text-gold-400 font-medium">🛡️ Cash on Delivery (COD) across Pakistan.</div>
-                    <button onclick="placeOrder()" class="w-full bg-gold-500 hover:bg-gold-400 text-forest-950 font-black py-3.5 rounded-xl shadow-lg text-base">Confirm & Place Order (COD)</button>
+            </div>
+
+            <!-- Category Section Highlights -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-black text-blue-900 mb-2">Explore Our Collection</h3>
+                <p class="text-gray-600 text-sm mb-6">Shop by category and contact us to check current prices, models and availability[cite: 8].</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-blue-50 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-blue-600">🔥</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">Electric Heaters</h4>
+                        <p class="text-gray-500 text-sm mb-4">Comfort and Warmth for Winter[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Electric%20Heaters" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-yellow-50 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-yellow-600">🍳</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">Stoves (Electric & Gas)</h4>
+                        <p class="text-gray-500 text-sm mb-4">Practical Cooking Solutions[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Stoves" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-blue-50 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-blue-600">❄️</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">AC/DC Air Coolers</h4>
+                        <p class="text-gray-500 text-sm mb-4">Cooling Solutions for Your Home[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Air%20Coolers" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-gray-100 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-blue-600">🌀</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">AC/DC Fans</h4>
+                        <p class="text-gray-500 text-sm mb-4">Everyday Cooling and Comfort[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Electric%20Fans" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-red-50 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-red-600">🚿</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">Geysers (Electric & Gas)</h4>
+                        <p class="text-gray-500 text-sm mb-4">Hot Water Solutions[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Geysers" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                        <div class="h-40 bg-blue-50 rounded-xl mb-4 flex items-center justify-center text-3xl font-bold text-blue-600">🧺</div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-1">Washing Machines</h4>
+                        <p class="text-gray-500 text-sm mb-4">Make Laundry Easier[cite: 8]</p>
+                        <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20Washing%20Machines" target="_blank" class="text-blue-600 font-bold text-sm hover:underline">Inquire on WhatsApp →</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- TRACK ORDER TAB -->
-        <div id="tracking" class="tab-content">
-            <div class="max-w-xl mx-auto bg-forest-900 border border-forest-800 rounded-3xl p-8 shadow-2xl text-center">
-                <h2 class="text-2xl font-black text-white mb-2">Track Your Order Status</h2>
-                <p class="text-gray-400 text-sm mb-6">Enter Order ID or Phone Number.</p>
-                <div class="flex gap-2 mb-6">
-                    <input type="text" id="track-id" placeholder="Order ID or 03028372072" class="flex-1 bg-forest-950 border border-forest-800 rounded-xl px-4 py-3 text-white text-sm">
-                    <button onclick="checkOrderStatus()" class="bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold px-6 py-3 rounded-xl text-sm">Track</button>
+        <!-- CATEGORIES TAB -->
+        <div id="categories" class="tab-content">
+            <div class="mb-8 text-center">
+                <h2 class="text-3xl font-black text-blue-900 mb-2">Complete Product Categories</h2>
+                <p class="text-gray-600 text-sm">Contact our team for current prices and availability across Pakistan[cite: 8].</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">Electric Heaters (Multiple Models)</h3><p class="text-xs text-gray-500">Winter comfort and warmth[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
                 </div>
-                <div id="track-result" class="bg-forest-950 p-4 rounded-xl border border-forest-800 text-sm text-gray-300 hidden"></div>
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">Electric & Gas Stoves</h3><p class="text-xs text-gray-500">Modern cooking made easy[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
+                </div>
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">AC/DC Air Coolers</h3><p class="text-xs text-gray-500">Powerful cooling & fresh air[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
+                </div>
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">Electric Fans (220V & AC/DC)</h3><p class="text-xs text-gray-500">Stay cool, stay fresh[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
+                </div>
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">Electric & Gas Geysers</h3><p class="text-xs text-gray-500">Instant hot water anytime[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
+                </div>
+                <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div><h3 class="font-bold text-lg text-blue-900">Washing & Dryer Machines</h3><p class="text-xs text-gray-500">Baby size & regular size available[cite: 8]</p></div>
+                    <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
+                </div>
             </div>
         </div>
 
-        <!-- CONTACT US TAB -->
+        <!-- ABOUT US TAB -->
+        <div id="about" class="tab-content">
+            <div class="max-w-3xl mx-auto bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">ABOUT OUR BUSINESS</span>
+                <h2 class="text-3xl font-black text-blue-900 mt-1 mb-4">Welcome to NOOR Home Appliances</h2>
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    NOOR Home Appliances serves customers in Daska and nearby areas with a range of home appliance categories. Our aim is to help customers explore suitable products and get information about models, prices and availability[cite: 8].
+                </p>
+                <p class="text-gray-600 text-sm leading-relaxed mb-8">
+                    Visit our showroom on Daska, Sialkot, Pakistan, or contact our team by phone or WhatsApp for product inquiries[cite: 8].
+                </p>
+                
+                <h3 class="text-xl font-bold text-blue-900 mb-4">Why Choose NOOR?</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <p class="font-bold text-blue-900 text-sm">01 Multiple Categories</p>
+                        <p class="text-xs text-gray-500 mt-1">Explore appliances for different household needs[cite: 8].</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <p class="font-bold text-blue-900 text-sm">02 Customer Assistance</p>
+                        <p class="text-xs text-gray-500 mt-1">Ask about models, specifications and current prices[cite: 8].</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <p class="font-bold text-blue-900 text-sm">03 Convenient Contact</p>
+                        <p class="text-xs text-gray-500 mt-1">Reach us through phone or WhatsApp[cite: 8].</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <p class="font-bold text-blue-900 text-sm">04 Local Showroom</p>
+                        <p class="text-xs text-gray-500 mt-1">Find us on Daska, Sialkot, Pakistan[cite: 8].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT TAB -->
         <div id="contact" class="tab-content">
-            <div class="max-w-xl mx-auto bg-forest-900 border border-forest-800 rounded-3xl p-8 shadow-2xl">
-                <h2 class="text-2xl font-black text-white mb-2 text-center">Get in Touch</h2>
-                <div class="space-y-4 mt-6">
-                    <div class="bg-forest-950 p-4 rounded-xl border border-forest-800 flex items-center gap-4">
-                        <span class="text-2xl">📞</span><div><p class="text-xs text-gray-400">WhatsApp</p><p class="font-bold text-white">03028372072</p></div>
-                    </div>
-                    <div class="bg-forest-950 p-4 rounded-xl border border-forest-800 flex items-center gap-4">
-                        <span class="text-2xl">📧</span><div><p class="text-xs text-gray-400">Email</p><p class="font-bold text-white">ubutt4238@gmail.com</p></div>
-                    </div>
+            <div class="max-w-xl mx-auto bg-blue-900 text-white rounded-3xl p-8 shadow-xl text-center">
+                <span class="text-xs font-bold text-blue-300 uppercase tracking-widest">WE ARE HERE TO HELP</span>
+                <h2 class="text-3xl font-black mt-1 mb-2">Looking for Home Appliances?</h2>
+                <p class="text-blue-200 text-sm mb-8">Contact NOOR Home Appliances for current prices, product details and availability[cite: 8].</p>
+                
+                <div class="space-y-4 mb-8">
+                    <a href="https://wa.me/923167407408" target="_blank" class="block bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg">
+                        WhatsApp: 0316-7407408
+                    </a>
+                    <a href="tel:03436158227" class="block bg-blue-800 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all border border-blue-700">
+                        Call: 0343-6158227
+                    </a>
                 </div>
-            </div>
-        </div>
-
-        <!-- ADMIN PANEL -->
-        <div id="admin-panel" class="tab-content">
-            <div class="max-w-4xl mx-auto bg-forest-900 border border-gold-500/40 rounded-3xl p-8 shadow-2xl">
-                <div class="flex justify-between items-center mb-6 border-b border-forest-800 pb-4">
-                    <h2 class="text-2xl font-black text-white">🔒 Admin Dashboard</h2>
-                    <button onclick="switchTab('home')" class="bg-forest-800 text-gray-300 px-4 py-2 rounded-xl text-xs font-bold">Close</button>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-forest-950 p-6 rounded-2xl border border-forest-800">
-                        <h3 class="text-lg font-bold text-white mb-4">📦 Received Orders</h3>
-                        <div id="admin-orders-list" class="space-y-3 max-h-60 overflow-y-auto pr-2"><p class="text-xs text-gray-500">No orders yet.</p></div>
-                    </div>
-                    <div class="bg-forest-950 p-6 rounded-2xl border border-forest-800 space-y-4">
-                        <h3 class="text-lg font-bold text-white mb-2">⚙️ Store Controls</h3>
-                        <button onclick="alert('Inventory active!')" class="w-full bg-forest-800 text-gold-400 font-bold py-3 rounded-xl text-sm border border-gold-500/30">Manage Inventory</button>
-                    </div>
+                
+                <div class="text-xs text-blue-300">
+                    <p class="font-bold text-white">NOOR Home Appliances</p>
+                    <p>Daska, Sialkot, Pakistan[cite: 8]</p>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="bg-forest-900 border-t border-forest-800 py-6 mt-16 text-center text-xs text-gray-400">
-        <p>&copy; 2026 Noor Home Appliances. All 50+ Products Active with Real Images (COD Pakistan).</p>
+    <!-- Footer Banner matching layout -->
+    <footer class="bg-blue-950 text-white py-12 mt-16">
+        <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
+            <span class="text-xs font-bold tracking-widest text-blue-400">WE ARE HERE TO HELP</span>
+            <h3 class="text-2xl font-black">Looking for Home Appliances?</h3>
+            <p class="text-gray-300 text-sm max-w-lg mx-auto">Contact NOOR Home Appliances for current prices, product details and availability[cite: 8].</p>
+            <div class="flex flex-wrap justify-center gap-4 pt-2">
+                <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl text-sm">WhatsApp: 0316-7407408</a>
+                <a href="tel:03436158227" class="bg-blue-800 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-sm border border-blue-700">Call: 0343-6158227</a>
+            </div>
+            <div class="pt-6 border-t border-blue-900 text-xs text-gray-400">
+                <p class="font-bold text-white">NOOR Home Appliances</p>
+                <p>Daska, Sialkot, Pakistan[cite: 8]</p>
+                <p class="mt-2">&copy; 2026 NOOR Home Appliances. All rights reserved[cite: 8].</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- JavaScript with 50+ Products Array & Real Images -->
+    <!-- JavaScript for Tabs & Mouse Click Circle Animation -->
     <script>
-        const products = [
-            { id: 1, name: "Noor Inverter Smart Fridge 18CFT", category: "Refrigerators", price: 85000, oldPrice: 95000, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "Noor Double Door Refrigerator", category: "Refrigerators", price: 72000, oldPrice: 79000, img: "https://images.unsplash.com/photo-1571175336579-bc55d2498550?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "Mini Glass Door Fridge", category: "Refrigerators", price: 34000, oldPrice: 38000, img: "https://images.unsplash.com/photo-1536353237141-a11573c004fe?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "Deep Freezer Horizontal 350L", category: "Refrigerators", price: 65000, oldPrice: 71000, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" },
-            { id: 5, name: "Vertical Freezer 6-Drawer", category: "Refrigerators", price: 78000, oldPrice: 85000, img: "https://images.unsplash.com/photo-1571175336579-bc55d2498550?auto=format&fit=crop&w=600&q=80" },
-            { id: 6, name: "Inverter Direct Cool Fridge", category: "Refrigerators", price: 58000, oldPrice: 63000, img: "https://images.unsplash.com/photo-1536353237141-a11573c004fe?auto=format&fit=crop&w=600&q=80" },
-            { id: 7, name: "Commercial Beverage Cooler", category: "Refrigerators", price: 92000, oldPrice: 99000, img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" },
-            { id: 8, name: "Compact Bar Fridge 90L", category: "Refrigerators", price: 29000, oldPrice: 33000, img: "https://images.unsplash.com/photo-1571175336579-bc55d2498550?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 9, name: "Noor Top Load Automatic Washer", category: "Washing Machines", price: 45000, oldPrice: 50000, img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" },
-            { id: 10, name: "Front Load Fully Auto Washer", category: "Washing Machines", price: 98000, oldPrice: 108000, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-            { id: 11, name: "Twin Tub Semi Auto Washer 12KG", category: "Washing Machines", price: 27000, oldPrice: 31000, img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" },
-            { id: 12, name: "Portable Mini Washer 4.5KG", category: "Washing Machines", price: 15000, oldPrice: 18000, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-            { id: 13, name: "Cloth Spinner Machine 8KG", category: "Washing Machines", price: 18000, oldPrice: 21000, img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" },
-            { id: 14, name: "Smart Steam Washer & Dryer", category: "Washing Machines", price: 125000, oldPrice: 138000, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-            { id: 15, name: "Heavy Duty Twin Tub 15KG", category: "Washing Machines", price: 33000, oldPrice: 37000, img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 16, name: "Digital Grill Microwave Oven", category: "Microwave Ovens", price: 28000, oldPrice: 32000, img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80" },
-            { id: 17, name: "Solo Microwave Oven 20L", category: "Microwave Ovens", price: 21000, oldPrice: 24000, img: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80" },
-            { id: 18, name: "Convection Baking Oven 32L", category: "Microwave Ovens", price: 36000, oldPrice: 41000, img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80" },
-            { id: 19, name: "Mechanical Dial Oven 25L", category: "Microwave Ovens", price: 23000, oldPrice: 26000, img: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80" },
-            { id: 20, name: "Built-in Kitchen Microwave", category: "Microwave Ovens", price: 54000, oldPrice: 60000, img: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 21, name: "Smart LED TV 43 Inch Frameless", category: "LED TVs", price: 62000, oldPrice: 69000, img: "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80" },
-            { id: 22, name: "4K UHD Smart LED TV 55 Inch", category: "LED TVs", price: 115000, oldPrice: 128000, img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=600&q=80" },
-            { id: 23, name: "Android LED TV 32 Inch HD", category: "LED TVs", price: 35000, oldPrice: 39000, img: "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80" },
-            { id: 24, name: "QLED Smart TV 65 Inch", category: "LED TVs", price: 175000, oldPrice: 195000, img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=600&q=80" },
-            { id: 25, name: "Borderless LED TV 40 Inch", category: "LED TVs", price: 48000, oldPrice: 53000, img: "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 26, name: "3-Tap Water Dispenser with Fridge", category: "Water Dispensers", price: 31000, oldPrice: 35000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 27, name: "Normal & Hot Water Dispenser", category: "Water Dispensers", price: 22000, oldPrice: 25000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 28, name: "Stainless Steel Water Cooler 40L", category: "Water Dispensers", price: 26000, oldPrice: 30000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 29, name: "RO Water Purifier System", category: "Water Dispensers", price: 24000, oldPrice: 28000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 30, name: "Tabletop Mini Water Dispenser", category: "Water Dispensers", price: 12000, oldPrice: 14000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 31, name: "Inverter Room Air Conditioner 1.5 Ton", category: "Air Conditioners", price: 145000, oldPrice: 160000, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-            { id: 32, name: "Inverter AC 1 Ton Heating/Cooling", category: "Air Conditioners", price: 118000, oldPrice: 130000, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-            { id: 33, name: "Floor Standing AC 2 Ton", category: "Air Conditioners", price: 260000, oldPrice: 285000, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-            { id: 34, name: "Portable Air Conditioner 1 Ton", category: "Air Conditioners", price: 95000, oldPrice: 105000, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-            { id: 35, name: "Desert Room Air Cooler", category: "Air Conditioners", price: 24000, oldPrice: 28000, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 36, name: "Auto Clean Kitchen Hood (Glass)", category: "Kitchen Chimneys", price: 32000, oldPrice: 37000, img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" },
-            { id: 37, name: "Built-in 4-Burner Gas Hob", category: "Kitchen Chimneys", price: 38000, oldPrice: 44000, img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" },
-            { id: 38, name: "Electric Air Fryer 6L Digital", category: "Small Appliances", price: 21000, oldPrice: 25000, img: "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80" },
-            { id: 39, name: "Kitchen Blender & Grinder 3-in-1", category: "Small Appliances", price: 11000, oldPrice: 13000, img: "https://images.unsplash.com/photo-1570222094114-d074f7e1e6e6?auto=format&fit=crop&w=600&q=80" },
-            { id: 40, name: "Electric Pressure Cooker 6L", category: "Small Appliances", price: 19000, oldPrice: 22000, img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 41, name: "Hand Blender Set with Chopper", category: "Small Appliances", price: 8500, oldPrice: 10000, img: "https://images.unsplash.com/photo-1570222094114-d074f7e1e6e6?auto=format&fit=crop&w=600&q=80" },
-            { id: 42, name: "Automatic Tea Maker & Kettle", category: "Small Appliances", price: 6500, oldPrice: 7800, img: "https://images.unsplash.com/photo-1570222094114-d074f7e1e6e6?auto=format&fit=crop&w=600&q=80" },
-            { id: 43, name: "Bread Toaster 2-Slice", category: "Small Appliances", price: 5500, oldPrice: 6500, img: "https://images.unsplash.com/photo-1570222094114-d074f7e1e6e6?auto=format&fit=crop&w=600&q=80" },
-            { id: 44, name: "Sandwich Maker & Grill", category: "Small Appliances", price: 7000, oldPrice: 8500, img: "https://images.unsplash.com/photo-1570222094114-d074f7e1e6e6?auto=format&fit=crop&w=600&q=80" },
-            { id: 45, name: "Garment Clothes Steamer", category: "Small Appliances", price: 12500, oldPrice: 15000, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-
-            { id: 46, name: "Dry Iron Heavy Weight", category: "Small Appliances", price: 4500, oldPrice: 5500, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-            { id: 47, name: "Steam Iron Ceramic Soleplate", category: "Small Appliances", price: 6800, oldPrice: 8000, img: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" },
-            { id: 48, name: "Vacuum Cleaner 2000W High Suction", category: "Home Comfort", price: 22000, oldPrice: 26000, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80" },
-            { id: 49, name: "Cordless Rechargeable Vacuum", category: "Home Comfort", price: 34000, oldPrice: 39000, img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80" },
-            { id: 50, name: "Electric Water Heater Geyser 15 Gallon", category: "Home Comfort", price: 28000, oldPrice: 32000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 51, name: "Instant Gas Water Heater Geyser", category: "Home Comfort", price: 21000, oldPrice: 24000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 52, name: "Stand Pedestal Fan with Remote", category: "Home Comfort", price: 9500, oldPrice: 11500, img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" }
-        ];
-
-        let cart = [];
-        let orders = [];
-
-        function renderProducts(items) {
-            const grid = document.getElementById('product-grid');
-            if (items.length === 0) {
-                grid.innerHTML = '<p class="text-gray-400 col-span-3 text-center py-10">No products found matching your search.</p>';
-                return;
-            }
-            let html = '';
-            items.forEach(p => {
-                html += `<div class="bg-forest-900 border border-forest-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group">
-                    <div>
-                        <div class="h-48 overflow-hidden bg-forest-950 relative">
-                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-3 left-3 bg-forest-950/80 text-gold-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-forest-800">${p.category}</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-white mb-2">${p.name}</h3>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="text-gold-400 font-black text-lg">RS. ${p.price.toLocaleString()}</span>
-                                <span class="text-gray-500 text-sm line-through">RS. ${p.oldPrice.toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0 flex gap-2">
-                        <button onclick="addToCart('${p.name}', ${p.price})" class="flex-1 bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold py-2.5 rounded-xl text-xs transition-all shadow-md">Add to Cart</button>
-                        <button onclick="buyNow('${p.name}', ${p.price})" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs transition-all">Buy Now</button>
-                    </div>
-                </div>`;
-            });
-            grid.innerHTML = html;
-        }
-
-        function filterProducts() {
-            let query = document.getElementById('search-input').value.toLowerCase();
-            let filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
-            renderProducts(filtered);
-        }
-
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-gold-500', 'text-forest-950');
-                btn.classList.add('text-gray-300');
-            });
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('text-blue-600'));
+            
             document.getElementById(tabId).classList.add('active');
             const activeBtn = document.getElementById('btn-' + tabId);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-gray-300');
-                activeBtn.classList.add('bg-gold-500', 'text-forest-950');
-            }
+            if(activeBtn) activeBtn.classList.add('text-blue-600');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        function openAdminPanel() {
-            let pin = prompt("Enter Admin PIN Code:");
-            if (pin === "7866") { switchTab('admin-panel'); } 
-            else if(pin !== null) { alert("Incorrect PIN!"); }
-        }
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            alert(name + " added to cart!");
-        }
-
-        function buyNow(name, price) {
-            cart = [{ name, price }];
-            updateCartUI();
-            switchTab('cart');
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cart-items');
-            const badge = document.getElementById('cart-badge');
-            const totalEl = document.getElementById('cart-total');
-            badge.innerText = cart.length;
-
-            if (cart.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-sm">Your cart is currently empty.</p>';
-                totalEl.innerText = 'RS. 500';
-                return;
-            }
-
-            let html = '';
-            let subtotal = 0;
-            cart.forEach((item, index) => {
-                subtotal += item.price;
-                html += `<div class="flex justify-between items-center bg-forest-950 p-3 rounded-xl border border-forest-800 text-sm">
-                    <div><p class="font-bold text-white">${item.name}</p><p class="text-xs text-gold-400">RS. ${item.price.toLocaleString()}</p></div>
-                    <button onclick="removeFromCart(${index})" class="text-red-400 text-xs font-bold hover:underline">Remove</button>
-                </div>`;
-            });
-            container.innerHTML = html;
-            totalEl.innerText = 'RS. ' + (subtotal + 500).toLocaleString();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function placeOrder() {
-            if (cart.length === 0) { alert("Cart is empty!"); return; }
-            let name = document.getElementById('cust-name').value.trim();
-            let phone = document.getElementById('cust-phone').value.trim();
-            let address = document.getElementById('cust-address').value.trim();
-
-            if (!name || !phone || !address) { alert("Please complete name, phone, and address!"); return; }
-
-            let orderId = 'NH-' + Math.floor(1000 + Math.random() * 9000);
-            let totalAmount = cart.reduce((sum, item) => sum + item.price, 0) + 500;
-
-            orders.push({ id: orderId, name, phone, address, items: [...cart], total: totalAmount, status: 'Confirmed (COD)' });
-            updateAdminOrders();
-
-            alert(`Order Placed! Order ID: ${orderId}. Cash on Delivery across Pakistan.`);
-            cart = [];
-            updateCartUI();
-            switchTab('tracking');
-            document.getElementById('track-id').value = orderId;
-            checkOrderStatus();
-        }
-
-        function checkOrderStatus() {
-            let query = document.getElementById('track-id').value.trim();
-            let resultBox = document.getElementById('track-result');
-            let found = orders.find(o => o.id === query || o.phone === query);
-            resultBox.classList.remove('hidden');
-            if(found) {
-                resultBox.innerHTML = `<p class="font-bold text-gold-400 mb-1">Order ID: ${found.id}</p>
-                <p><strong>Customer:</strong> ${found.name}</p>
-                <p><strong>Status:</strong> <span class="text-emerald-400">${found.status}</span></p>
-                <p><strong>Total COD:</strong> RS. ${found.total.toLocaleString()}</p>`;
-            } else {
-                resultBox.innerHTML = `<p class="text-red-400">No order found for "${query}".</p>`;
-            }
-        }
-
-        function updateAdminOrders() {
-            let container = document.getElementById('admin-orders-list');
-            if(orders.length === 0) return;
-            let html = '';
-            orders.forEach(o => {
-                html += `<div class="bg-forest-900 p-3 rounded-xl border border-forest-800 text-xs space-y-1">
-                    <div class="flex justify-between font-bold text-gold-400"><span>${o.id}</span><span>RS. ${o.total.toLocaleString()}</span></div>
-                    <p class="text-white"><strong>${o.name}</strong> (${o.phone})</p>
-                    <p class="text-gray-400">${o.address}</p>
-                    <p class="text-emerald-400 font-semibold">Status: ${o.status}</p>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        window.onload = function() {
-            renderProducts(products);
-        };
 
         window.addEventListener('click', function(e) {
             const circle = document.createElement('div');
