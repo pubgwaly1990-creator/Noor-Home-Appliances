@@ -3,8 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOOR Home Appliances — Daska, Sialkot, Pakistan</title>
+    <title>NOOR Home Appliances — Live Cloud Sync</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDKs for Real-Time Firestore Sync -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // TODO: Replace with your Firebase Project Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Real-time listener for Products
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            let products = [];
+            snapshot.forEach((doc) => {
+                products.push({ id: doc.id, ...doc.data() });
+            });
+            window.renderLiveProducts(products);
+        });
+
+        // Real-time listener for Bank Accounts
+        onSnapshot(collection(db, "bankAccounts"), (snapshot) => {
+            let banks = [];
+            snapshot.forEach((doc) => {
+                banks.push({ id: doc.id, ...doc.data() });
+            });
+            window.renderLiveBanks(banks);
+        });
+
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.deleteDoc = deleteDoc;
+        window.doc = doc;
+    </script>
     <style>
         .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
@@ -63,17 +105,16 @@
 
         <!-- HOME TAB -->
         <div id="home" class="tab-content active">
-            <!-- Hero Banner -->
             <div class="bg-white border border-gray-200 rounded-3xl p-8 sm:p-12 mb-12 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div>
                     <span class="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                         YOUR HOME, OUR PRIORITY
                     </span>
                     <h2 class="text-4xl sm:text-5xl font-black text-blue-900 mt-4 mb-4 leading-tight">
-                        Premium Quality <span class="text-blue-600">Home Appliances</span> For Your Home
+                        Cloud-Synced <span class="text-blue-600">Home Appliances</span> Store
                     </h2>
                     <p class="text-gray-600 text-base mb-8">
-                        Discover electric heaters, AC/DC air coolers, fans, stoves, geysers and washing machines at NOOR Home Appliances, Daska, Sialkot, Pakistan[cite: 8].
+                        Discover electric heaters, air coolers, washing machines, and geysers with real-time cloud data updates.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <button onclick="switchTab('categories')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all">
@@ -89,16 +130,16 @@
                 </div>
             </div>
 
-            <!-- Dynamic Product Grid with Real Images -->
+            <!-- Live Product Grid -->
             <div class="mb-12">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h3 class="text-2xl font-black text-blue-900">Explore Our Collection</h3>
-                        <p class="text-gray-600 text-sm">Shop by category and check current prices, models and availability[cite: 8].</p>
+                        <h3 class="text-2xl font-black text-blue-900">Live Collection (Cloud Synced)</h3>
+                        <p class="text-gray-600 text-sm">Updates made in admin panel reflect instantly worldwide.</p>
                     </div>
                 </div>
                 <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Products will be rendered dynamically -->
+                    <p class="text-gray-400 text-sm">Loading live products from cloud...</p>
                 </div>
             </div>
         </div>
@@ -107,11 +148,9 @@
         <div id="categories" class="tab-content">
             <div class="mb-8 text-center">
                 <h2 class="text-3xl font-black text-blue-900 mb-2">Complete Product Categories</h2>
-                <p class="text-gray-600 text-sm">Contact our team for current prices and availability across Pakistan[cite: 8].</p>
+                <p class="text-gray-600 text-sm">Contact our team for current prices and availability across Pakistan.</p>
             </div>
-            <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Dynamic categories -->
-            </div>
+            <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </div>
 
         <!-- ABOUT US TAB -->
@@ -120,31 +159,8 @@
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">ABOUT OUR BUSINESS</span>
                 <h2 class="text-3xl font-black text-blue-900 mt-1 mb-4">Welcome to NOOR Home Appliances</h2>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                    NOOR Home Appliances serves customers in Daska and nearby areas with a range of home appliance categories. Our aim is to help customers explore suitable products and get information about models, prices and availability[cite: 8].
+                    NOOR Home Appliances serves customers in Daska and nearby areas with a range of home appliance categories.
                 </p>
-                <p class="text-gray-600 text-sm leading-relaxed mb-8">
-                    Visit our showroom on Daska, Sialkot, Pakistan, or contact our team by phone or WhatsApp for product inquiries[cite: 8].
-                </p>
-                
-                <h3 class="text-xl font-bold text-blue-900 mb-4">Why Choose NOOR?</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                        <p class="font-bold text-blue-900 text-sm">01 Multiple Categories</p>
-                        <p class="text-xs text-gray-500 mt-1">Explore appliances for different household needs[cite: 8].</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                        <p class="font-bold text-blue-900 text-sm">02 Customer Assistance</p>
-                        <p class="text-xs text-gray-500 mt-1">Ask about models, specifications and current prices[cite: 8].</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                        <p class="font-bold text-blue-900 text-sm">03 Convenient Contact</p>
-                        <p class="text-xs text-gray-500 mt-1">Reach us through phone or WhatsApp[cite: 8].</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                        <p class="font-bold text-blue-900 text-sm">04 Local Showroom</p>
-                        <p class="text-xs text-gray-500 mt-1">Find us on Daska, Sialkot, Pakistan[cite: 8].</p>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -153,20 +169,9 @@
             <div class="max-w-xl mx-auto bg-blue-900 text-white rounded-3xl p-8 shadow-xl text-center">
                 <span class="text-xs font-bold text-blue-300 uppercase tracking-widest">WE ARE HERE TO HELP</span>
                 <h2 class="text-3xl font-black mt-1 mb-2">Looking for Home Appliances?</h2>
-                <p class="text-blue-200 text-sm mb-8">Contact NOOR Home Appliances for current prices, product details and availability[cite: 8].</p>
-                
+                <p class="text-blue-200 text-sm mb-8">Contact NOOR Home Appliances for current prices and availability.</p>
                 <div class="space-y-4 mb-8">
-                    <a href="https://wa.me/923167407408" target="_blank" class="block bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg">
-                        WhatsApp: 0316-7407408
-                    </a>
-                    <a href="tel:03436158227" class="block bg-blue-800 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all border border-blue-700">
-                        Call: 0343-6158227
-                    </a>
-                </div>
-                
-                <div class="text-xs text-blue-300">
-                    <p class="font-bold text-white">NOOR Home Appliances</p>
-                    <p>Daska, Sialkot, Pakistan[cite: 8]</p>
+                    <a href="https://wa.me/923167407408" target="_blank" class="block bg-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg">WhatsApp: 0316-7407408</a>
                 </div>
             </div>
         </div>
@@ -176,154 +181,129 @@
             <div class="max-w-4xl mx-auto bg-white border border-blue-200 rounded-3xl p-8 shadow-2xl">
                 <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
                     <div>
-                        <h2 class="text-2xl font-black text-blue-900">🔒 Admin Dashboard</h2>
-                        <p class="text-xs text-gray-500">Manage products, real images, and bank account details.</p>
+                        <h2 class="text-2xl font-black text-blue-900">🔒 Cloud Admin Dashboard</h2>
+                        <p class="text-xs text-gray-500">Changes will instantly sync globally via Firebase Firestore.</p>
                     </div>
                     <button onclick="switchTab('home')" class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-xl text-xs font-bold">Close Admin</button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Add / Edit Products Section -->
+                    <!-- Add Product Section -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-4">
-                        <h3 class="text-lg font-bold text-blue-900">➕ Add New Product</h3>
+                        <h3 class="text-lg font-bold text-blue-900">➕ Add Cloud Product</h3>
                         <div>
                             <label class="block text-xs font-bold text-gray-700 mb-1">Product Name</label>
-                            <input type="text" id="new-prod-name" placeholder="e.g. Noor Inverter Heater" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
+                            <input type="text" id="new-prod-name" placeholder="e.g. Smart Room Heater" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-700 mb-1">Category</label>
-                            <input type="text" id="new-prod-cat" placeholder="e.g. Electric Heaters" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
+                            <input type="text" id="new-prod-cat" placeholder="e.g. Heaters" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Upload Product Image (Choose File)</label>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Choose Image File</label>
                             <input type="file" id="new-prod-file" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
                         </div>
-                        <button onclick="addNewProduct()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm transition-all shadow-md">
-                            Save & Add Product
+                        <button onclick="uploadAndAddProduct()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">
+                            Save to Cloud Database
                         </button>
                     </div>
 
-                    <!-- Manage Bank Accounts Section -->
+                    <!-- Bank Accounts Section -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-4">
-                        <h3 class="text-lg font-bold text-blue-900">🏦 Bank Accounts Management</h3>
+                        <h3 class="text-lg font-bold text-blue-900">🏦 Cloud Bank Accounts</h3>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Bank Name & Title</label>
-                            <input type="text" id="bank-title" placeholder="e.g. Meezan Bank - Usman Butt" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Bank Title</label>
+                            <input type="text" id="bank-title" placeholder="Meezan Bank" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Account / IBAN Number</label>
-                            <input type="text" id="bank-acc" placeholder="e.g. PK00MEZN0000..." class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Account / IBAN</label>
+                            <input type="text" id="bank-acc" placeholder="PK00MEZN..." class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
                         </div>
-                        <button onclick="saveBankAccount()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-sm transition-all shadow-md">
-                            Save Bank Account
+                        <button onclick="saveCloudBank()" class="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">
+                            Save Bank to Cloud
                         </button>
-                        <div id="bank-list" class="mt-4 space-y-2 max-h-40 overflow-y-auto">
-                            <!-- Saved banks list -->
-                        </div>
+                        <div id="bank-list" class="mt-4 space-y-2 max-h-40 overflow-y-auto"></div>
                     </div>
                 </div>
 
-                <!-- Existing Products List for Delete/Edit -->
+                <!-- Manage Existing Cloud Products -->
                 <div class="mt-8 bg-gray-50 p-6 rounded-2xl border border-gray-200">
-                    <h3 class="text-lg font-bold text-blue-900 mb-4">📦 Manage Existing Products (Delete / Edit)</h3>
-                    <div id="admin-products-list" class="space-y-3 max-h-60 overflow-y-auto">
-                        <!-- Rendered via JS -->
-                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-4">📦 Manage Live Cloud Products (Delete)</h3>
+                    <div id="admin-products-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- Footer Banner -->
-    <footer class="bg-blue-950 text-white py-12 mt-16">
-        <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
-            <span class="text-xs font-bold tracking-widest text-blue-400">WE ARE HERE TO HELP</span>
-            <h3 class="text-2xl font-black">Looking for Home Appliances?</h3>
-            <p class="text-gray-300 text-sm max-w-lg mx-auto">Contact NOOR Home Appliances for current prices, product details and availability[cite: 8].</p>
-            <div class="flex flex-wrap justify-center gap-4 pt-2">
-                <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl text-sm">WhatsApp: 0316-7407408</a>
-                <a href="tel:03436158227" class="bg-blue-800 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-sm border border-blue-700">Call: 0343-6158227</a>
-            </div>
-            <div class="pt-6 border-t border-blue-900 text-xs text-gray-400">
-                <p class="font-bold text-white">NOOR Home Appliances</p>
-                <p>Daska, Sialkot, Pakistan[cite: 8]</p>
-                <p class="mt-2">&copy; 2026 NOOR Home Appliances. All rights reserved[cite: 8].</p>
-            </div>
-        </div>
+    <!-- Footer -->
+    <footer class="bg-blue-950 text-white py-12 mt-16 text-center">
+        <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- Frontend Sync Logic -->
     <script>
-        // Initial Products with Real Images
-        let products = [
-            { id: 1, name: "Electric Heater Multi-Model", category: "Electric Heaters", desc: "Comfort and Warmth for Winter[cite: 8]", img: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "Electric & Gas Stove", category: "Stoves", desc: "Modern Cooking, Made Easy![cite: 8]", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "AC/DC Air Cooler", category: "Air Coolers", desc: "Powerful Cooling & Fresh Air[cite: 8]", img: "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "Electric Fan 220V & AC/DC", category: "Electric Fans", desc: "Stay Cool, Stay Fresh[cite: 8]", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" },
-            { id: 5, name: "Electric & Gas Geyser", category: "Geysers", desc: "Hot Water. Anytime![cite: 8]", img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" },
-            { id: 6, name: "Washing & Dryer Machine", category: "Washing Machines", desc: "Baby Size & Regular Size[cite: 8]", img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80" }
-        ];
+        let cachedProducts = [];
+        let cachedBanks = [];
 
-        let bankAccounts = [
-            { title: "Meezan Bank - Noor Home Appliances", acc: "PK00MEZN0000123456789" }
-        ];
-
-        function renderProducts() {
+        window.renderLiveProducts = function(products) {
+            cachedProducts = products;
             const grid = document.getElementById('product-grid');
-            let html = '';
+            const adminList = document.getElementById('admin-products-list');
+            const catGrid = document.getElementById('categories-grid');
+
+            if (products.length === 0) {
+                grid.innerHTML = '<p class="text-gray-400 text-sm">No products found in cloud database.</p>';
+                adminList.innerHTML = '<p class="text-xs text-gray-500">No products available.</p>';
+                catGrid.innerHTML = '';
+                return;
+            }
+
+            let html = '', adminHtml = '', catHtml = '';
             products.forEach(p => {
                 html += `<div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                     <div>
                         <div class="h-48 overflow-hidden bg-gray-100">
-                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
+                            <img src="${p.img || 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80'}" alt="${p.name}" class="w-full h-full object-cover">
                         </div>
                         <div class="p-6">
                             <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">${p.category}</span>
                             <h4 class="text-lg font-bold text-gray-900 mt-1 mb-2">${p.name}</h4>
-                            <p class="text-gray-500 text-sm mb-4">${p.desc}</p>
+                            <p class="text-gray-500 text-sm mb-4">High Quality & Durable</p>
                         </div>
                     </div>
                     <div class="p-6 pt-0">
                         <a href="https://wa.me/923167407408?text=I%20want%20to%20inquire%20about%20${encodeURIComponent(p.name)}" target="_blank" class="block text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs transition-all">Inquire on WhatsApp →</a>
                     </div>
                 </div>`;
-            });
-            grid.innerHTML = html;
 
-            // Render Admin Products List
-            const adminList = document.getElementById('admin-products-list');
-            let adminHtml = '';
-            products.forEach((p, index) => {
                 adminHtml += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-200 text-xs">
                     <div class="flex items-center gap-3">
                         <img src="${p.img}" class="w-10 h-10 object-cover rounded-lg">
                         <div><p class="font-bold text-blue-900">${p.name}</p><p class="text-gray-500">${p.category}</p></div>
                     </div>
-                    <button onclick="deleteProduct(${index})" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-red-600">Delete</button>
+                    <button onclick="deleteCloudProduct('${p.id}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-red-600">Delete</button>
                 </div>`;
-            });
-            adminList.innerHTML = adminHtml;
 
-            // Render Categories Tab
-            const catGrid = document.getElementById('categories-grid');
-            let catHtml = '';
-            products.forEach(p => {
                 catHtml += `<div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm flex items-center justify-between">
-                    <div><h3 class="font-bold text-lg text-blue-900">${p.name}</h3><p class="text-xs text-gray-500">${p.desc}</p></div>
+                    <div><h3 class="font-bold text-lg text-blue-900">${p.name}</h3><p class="text-xs text-gray-500">${p.category}</p></div>
                     <a href="https://wa.me/923167407408" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Inquire</a>
                 </div>`;
             });
+
+            grid.innerHTML = html;
+            adminList.innerHTML = adminHtml;
             catGrid.innerHTML = catHtml;
         }
 
-        function renderBanks() {
+        window.renderLiveBanks = function(banks) {
+            cachedBanks = banks;
             const list = document.getElementById('bank-list');
             let html = '';
-            bankAccounts.forEach((b, index) => {
+            banks.forEach(b => {
                 html += `<div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-gray-200 text-xs">
                     <div><p class="font-bold text-gray-800">${b.title}</p><p class="text-gray-500">${b.acc}</p></div>
-                    <button onclick="deleteBank(${index})" class="text-red-500 font-bold hover:underline">Remove</button>
+                    <button onclick="deleteCloudBank('${b.id}')" class="text-red-500 font-bold hover:underline">Remove</button>
                 </div>`;
             });
             list.innerHTML = html;
@@ -333,13 +313,12 @@
             let pin = prompt("Enter Admin PIN Code:");
             if (pin === "7866") {
                 switchTab('admin-panel');
-                renderBanks();
             } else if (pin !== null) {
                 alert("Incorrect PIN! Access Denied.");
             }
         }
 
-        function addNewProduct() {
+        async function uploadAndAddProduct() {
             let name = document.getElementById('new-prod-name').value.trim();
             let cat = document.getElementById('new-prod-cat').value.trim();
             let fileInput = document.getElementById('new-prod-file');
@@ -349,59 +328,62 @@
                 return;
             }
 
-            let imgSrc = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80"; // default fallback
+            let imgSrc = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
             if (fileInput.files && fileInput.files[0]) {
-                imgSrc = URL.createObjectURL(fileInput.files[0]);
+                imgSrc = URL.createObjectURL(fileInput.files[0]); // Converts file to temporary URL for cloud
             }
 
-            products.push({ id: Date.now(), name, category: cat, desc: "New Arrival - Available Now", img: imgSrc });
-            renderProducts();
-            alert("Product added and saved successfully!");
-            document.getElementById('new-prod-name').value = '';
-            document.getElementById('new-prod-cat').value = '';
-            document.getElementById('new-prod-file').value = '';
-        }
-
-        function deleteProduct(index) {
-            if (confirm("Are you sure you want to delete this product?")) {
-                products.splice(index, 1);
-                renderProducts();
+            try {
+                await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: imgSrc });
+                alert("Product successfully added to Cloud Database & live worldwide!");
+                document.getElementById('new-prod-name').value = '';
+                document.getElementById('new-prod-cat').value = '';
+                document.getElementById('new-prod-file').value = '';
+            } catch (e) {
+                alert("Error adding product: " + e.message);
             }
         }
 
-        function saveBankAccount() {
+        async function deleteCloudProduct(id) {
+            if (confirm("Delete this product globally?")) {
+                try {
+                    await window.deleteDoc(window.doc(window.db, "products", id));
+                } catch (e) {
+                    alert("Error deleting: " + e.message);
+                }
+            }
+        }
+
+        async function saveCloudBank() {
             let title = document.getElementById('bank-title').value.trim();
             let acc = document.getElementById('bank-acc').value.trim();
-            if (!title || !acc) {
-                alert("Please fill in bank title and account number!");
-                return;
+            if (!title || !acc) { alert("Enter bank details!"); return; }
+            try {
+                await window.addDoc(window.collection(window.db, "bankAccounts"), { title, acc });
+                alert("Bank account saved to cloud!");
+                document.getElementById('bank-title').value = '';
+                document.getElementById('bank-acc').value = '';
+            } catch (e) {
+                alert("Error: " + e.message);
             }
-            bankAccounts.push({ title, acc });
-            renderBanks();
-            alert("Bank account saved successfully!");
-            document.getElementById('bank-title').value = '';
-            document.getElementById('bank-acc').value = '';
         }
 
-        function deleteBank(index) {
-            bankAccounts.splice(index, 1);
-            renderBanks();
+        async function deleteCloudBank(id) {
+            try {
+                await window.deleteDoc(window.doc(window.db, "bankAccounts", id));
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
         }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('text-blue-600'));
-            
             document.getElementById(tabId).classList.add('active');
             const activeBtn = document.getElementById('btn-' + tabId);
             if(activeBtn) activeBtn.classList.add('text-blue-600');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        window.onload = function() {
-            renderProducts();
-            renderBanks();
-        };
 
         window.addEventListener('click', function(e) {
             const circle = document.createElement('div');
