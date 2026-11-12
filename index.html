@@ -242,7 +242,7 @@
         window.doc = doc;
     </script>
 
-    <!-- Frontend UI & Logic -->
+    <!-- Frontend UI & Logic with Cloud Base64 Image Conversion -->
     <script>
         window.renderLiveProducts = function(products) {
             const grid = document.getElementById('product-grid');
@@ -324,19 +324,32 @@
                 return;
             }
 
-            let imgSrc = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
-            if (fileInput.files && fileInput.files[0]) {
-                imgSrc = URL.createObjectURL(fileInput.files[0]);
-            }
+            let defaultImg = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
 
-            try {
-                await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: imgSrc });
-                alert("Product successfully added to Cloud Database & live worldwide!");
-                document.getElementById('new-prod-name').value = '';
-                document.getElementById('new-prod-cat').value = '';
-                document.getElementById('new-prod-file').value = '';
-            } catch (e) {
-                alert("Error adding product: " + e.message);
+            if (fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = async function(e) {
+                    let base64Image = e.target.result; // Converts image into cloud-safe data string
+                    try {
+                        await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: base64Image });
+                        alert("Product & image successfully uploaded to Cloud & live worldwide!");
+                        document.getElementById('new-prod-name').value = '';
+                        document.getElementById('new-prod-cat').value = '';
+                        document.getElementById('new-prod-file').value = '';
+                    } catch (err) {
+                        alert("Error adding product: " + err.message);
+                    }
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                try {
+                    await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: defaultImg });
+                    alert("Product successfully added to Cloud Database!");
+                    document.getElementById('new-prod-name').value = '';
+                    document.getElementById('new-prod-cat').value = '';
+                } catch (err) {
+                    alert("Error: " + err.message);
+                }
             }
         }
 
