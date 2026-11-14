@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOOR Home Appliances — Live Cloud Synced Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
@@ -16,6 +17,21 @@
             0% { width: 0px; height: 0px; opacity: 1; }
             100% { width: 80px; height: 80px; opacity: 0; }
         }
+
+        /* LEFT SIDEBAR FIXED SOCIAL TABS */
+        .left-social-bar {
+            position: fixed; left: 15px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 12px; z-index: 9999;
+        }
+        .left-social-btn {
+            width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.3s ease;
+        }
+        .left-social-btn:hover { transform: scale(1.15) translateX(5px); }
+        .left-social-btn.wa { background: #25D366; }
+        .left-social-btn.fb { background: #1877F2; }
+        .left-social-btn.tt { background: #000000; }
+        .left-social-btn.ig { background: #E4405F; }
 
         /* ELECTRIC NEON GLOW ANIMATION */
         @keyframes electricGlow {
@@ -38,6 +54,14 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- LEFT SIDEBAR FIXED SOCIAL BUTTONS -->
+    <div class="left-social-bar">
+        <a href="https://wa.me/923167407408" target="_blank" class="left-social-btn wa" title="WhatsApp Direct"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://facebook.com" target="_blank" class="left-social-btn fb" title="Facebook Page"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://tiktok.com" target="_blank" class="left-social-btn tt" title="TikTok Profile"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://instagram.com" target="_blank" class="left-social-btn ig" title="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
+    </div>
 
     <!-- Header Navigation -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -69,13 +93,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Floating WhatsApp Button -->
-    <div class="fixed bottom-6 left-6 z-50">
-        <a href="https://wa.me/923167407408" target="_blank" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center text-3xl shadow-xl transition-transform hover:scale-110">
-            💬
-        </a>
-    </div>
 
     <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
@@ -171,9 +188,9 @@
                 <div class="pt-4 border-t border-blue-800">
                     <p class="text-xs text-blue-200 mb-4 font-bold uppercase tracking-wider">Follow Us On Social Media</p>
                     <div class="flex justify-center gap-4">
-                        <a href="https://facebook.com" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all">Facebook</a>
-                        <a href="https://tiktok.com" target="_blank" class="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all border border-gray-700">TikTok</a>
-                        <a href="https://instagram.com" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all">Instagram</a>
+                        <a href="https://facebook.com" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
+                        <a href="https://tiktok.com" target="_blank" class="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all border border-gray-700"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
+                        <a href="https://instagram.com" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
                     </div>
                 </div>
             </div>
@@ -260,9 +277,9 @@
     <footer class="bg-blue-950 text-white py-12 mt-16 text-center">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-center gap-6 mb-6">
-                <a href="https://facebook.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors">Facebook</a>
-                <a href="https://tiktok.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors">TikTok</a>
-                <a href="https://instagram.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors">Instagram</a>
+                <a href="https://facebook.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
+                <a href="https://tiktok.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
+                <a href="https://instagram.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
             </div>
             <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced.</p>
         </div>
@@ -553,10 +570,10 @@
             try {
                 if(editId) {
                     await window.updateDoc(window.doc(window.db, "bankAccounts", editId), { title, acc });
-                    alert("Bank account updated live successfully!");
+                    alert("Bank account updated successfully!");
                 } else {
                     await window.addDoc(window.collection(window.db, "bankAccounts"), { title, acc });
-                    alert("Bank account saved live successfully!");
+                    alert("Bank account saved successfully!");
                 }
                 resetBankForm();
             } catch (e) {
