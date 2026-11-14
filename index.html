@@ -72,7 +72,7 @@
                         Premium Quality <span class="text-blue-600">Home Appliances</span> For Your Home
                     </h2>
                     <p class="text-gray-600 text-base mb-8">
-                        Discover electric heaters, AC/DC air coolers, fans, stoves, geysers and washing machines at NOOR Home Appliances, Daska, Sialkot, Pakistan[cite: 8, 9].
+                        Discover electric heaters, AC/DC air coolers, fans, stoves, geysers and washing machines at NOOR Home Appliances, Daska, Sialkot, Pakistan[cite: 8].
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <button onclick="switchTab('categories')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all">
@@ -88,16 +88,16 @@
                 </div>
             </div>
 
-            <!-- Live Product Grid -->
+            <!-- Live Cloud Product Grid -->
             <div class="mb-12">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h3 class="text-2xl font-black text-blue-900">NOOR Home Appliances Collection</h3>
-                        <p class="text-gray-600 text-sm">Official product categories available for inquiry and delivery across Pakistan[cite: 8, 9].</p>
+                        <h3 class="text-2xl font-black text-blue-900">Live Collection (Cloud Synced)</h3>
+                        <p class="text-gray-600 text-sm">Real-time live products updated instantly from the admin panel.</p>
                     </div>
                 </div>
                 <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Loaded dynamically from Firebase -->
+                    <p class="text-gray-400 text-sm">Loading live products from cloud database...</p>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                 <p class="text-gray-600 text-sm">Contact our team for current prices and availability across Pakistan.</p>
             </div>
             <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Loaded dynamically -->
+                <!-- Loaded live -->
             </div>
         </div>
 
@@ -119,7 +119,7 @@
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">ABOUT OUR BUSINESS</span>
                 <h2 class="text-3xl font-black text-blue-900 mt-1 mb-4">Welcome to NOOR Home Appliances</h2>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                    NOOR Home Appliances serves customers in Daska, Sialkot, and nearby areas with a range of home appliance categories[cite: 8, 9]. Our aim is to help customers explore suitable products and get information about models, prices and availability[cite: 8, 9].
+                    NOOR Home Appliances serves customers in Daska, Sialkot, and nearby areas with a range of home appliance categories[cite: 8]. Our aim is to help customers explore suitable products and get information about models, prices and availability[cite: 8].
                 </p>
             </div>
         </div>
@@ -129,9 +129,9 @@
             <div class="max-w-xl mx-auto bg-blue-900 text-white rounded-3xl p-8 shadow-xl text-center">
                 <span class="text-xs font-bold text-blue-300 uppercase tracking-widest">WE ARE HERE TO HELP</span>
                 <h2 class="text-3xl font-black mt-1 mb-2">Looking for Home Appliances?</h2>
-                <p class="text-blue-200 text-sm mb-8">Contact NOOR Home Appliances for current prices and availability[cite: 8, 9].</p>
+                <p class="text-blue-200 text-sm mb-8">Contact NOOR Home Appliances for current prices and availability[cite: 8].</p>
                 <div class="space-y-4 mb-8">
-                    <a href="https://wa.me/923167407408" target="_blank" class="block bg-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg">WhatsApp: 0316-7407408[cite: 8, 9]</a>
+                    <a href="https://wa.me/923167407408" target="_blank" class="block bg-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg">WhatsApp: 0316-7407408[cite: 8]</a>
                 </div>
             </div>
         </div>
@@ -141,8 +141,8 @@
             <div class="max-w-4xl mx-auto bg-white border border-blue-200 rounded-3xl p-8 shadow-2xl">
                 <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
                     <div>
-                        <h2 class="text-2xl font-black text-blue-900">🔒 Cloud Admin Dashboard</h2>
-                        <p class="text-xs text-gray-500">Manage products and bank accounts with Add, Edit, Save, and Delete options.</p>
+                        <h2 class="text-2xl font-black text-blue-900">🔒 Live Cloud Admin Dashboard</h2>
+                        <p class="text-xs text-gray-500">Changes will instantly save and sync globally in real-time via Firebase Firestore.</p>
                     </div>
                     <button onclick="switchTab('home')" class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-xl text-xs font-bold">Close Admin</button>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Add / Edit Product Section -->
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-4">
-                        <h3 id="product-form-title" class="text-lg font-bold text-blue-900">➕ Add Cloud Product</h3>
+                        <h3 id="product-form-title" class="text-lg font-bold text-blue-900">➕ Add Live Product</h3>
                         <input type="hidden" id="edit-prod-id">
                         <div>
                             <label class="block text-xs font-bold text-gray-700 mb-1">Product Name</label>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="flex gap-2">
                             <button onclick="saveCloudProduct()" id="prod-save-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">
-                                Save Product
+                                Save Live Product
                             </button>
                             <button onclick="resetProductForm()" id="prod-cancel-btn" class="hidden bg-gray-400 text-white font-bold px-4 py-2.5 rounded-xl text-sm">
                                 Cancel
@@ -188,7 +188,7 @@
                         </div>
                         <div class="flex gap-2">
                             <button onclick="saveCloudBank()" id="bank-save-btn" class="flex-1 bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">
-                                Save Bank
+                                Save Live Bank
                             </button>
                             <button onclick="resetBankForm()" id="bank-cancel-btn" class="hidden bg-gray-400 text-white font-bold px-4 py-2.5 rounded-xl text-sm">
                                 Cancel
@@ -215,10 +215,10 @@
 
     <!-- Footer -->
     <footer class="bg-blue-950 text-white py-12 mt-16 text-center">
-        <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced[cite: 8, 9].</p>
+        <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced[cite: 8].</p>
     </footer>
 
-    <!-- Firebase SDK Script Tag Integration -->
+    <!-- Firebase SDK Script Integration with Real-time Listeners -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
         import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
@@ -236,7 +236,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Real-time listener for Products
+        // REAL-TIME CLOUD LISTENER FOR PRODUCTS (Live Syncs for Everyone)
         onSnapshot(collection(db, "products"), (snapshot) => {
             let products = [];
             snapshot.forEach((docSnap) => {
@@ -245,7 +245,7 @@
             window.renderLiveProducts(products);
         });
 
-        // Real-time listener for Bank Accounts
+        // REAL-TIME CLOUD LISTENER FOR BANKS
         onSnapshot(collection(db, "bankAccounts"), (snapshot) => {
             let banks = [];
             snapshot.forEach((docSnap) => {
@@ -262,7 +262,7 @@
         window.doc = doc;
     </script>
 
-    <!-- Frontend UI & Logic -->
+    <!-- Frontend Live Sync Logic & CRUD -->
     <script>
         let cachedProducts = [];
         let cachedBanks = [];
@@ -274,7 +274,7 @@
             const catGrid = document.getElementById('categories-grid');
 
             if (!products || products.length === 0) {
-                grid.innerHTML = '<p class="text-gray-400 text-sm">No products found in cloud database.</p>';
+                grid.innerHTML = '<p class="text-gray-400 text-sm">No products found in cloud database. Add via Admin panel.</p>';
                 adminList.innerHTML = '<p class="text-xs text-gray-500">No products available.</p>';
                 catGrid.innerHTML = '<p class="text-xs text-gray-500">No categories available.</p>';
                 return;
@@ -358,8 +358,8 @@
             document.getElementById('edit-prod-id').value = p.id;
             document.getElementById('new-prod-name').value = p.name;
             document.getElementById('new-prod-cat').value = p.category;
-            document.getElementById('product-form-title').innerText = "✏️ Edit Cloud Product";
-            document.getElementById('prod-save-btn').innerText = "Update Product";
+            document.getElementById('product-form-title').innerText = "✏️ Edit Live Product";
+            document.getElementById('prod-save-btn').innerText = "Update Live Product";
             document.getElementById('prod-cancel-btn').classList.remove('hidden');
             window.scrollTo({ top: 300, behavior: 'smooth' });
         }
@@ -369,12 +369,12 @@
             document.getElementById('new-prod-name').value = '';
             document.getElementById('new-prod-cat').value = '';
             document.getElementById('new-prod-file').value = '';
-            document.getElementById('product-form-title').innerText = "➕ Add Cloud Product";
-            document.getElementById('prod-save-btn').innerText = "Save Product";
+            document.getElementById('product-form-title').innerText = "➕ Add Live Product";
+            document.getElementById('prod-save-btn').innerText = "Save Live Product";
             document.getElementById('prod-cancel-btn').classList.add('hidden');
         }
 
-        async function saveCloudProduct() {
+        window.saveCloudProduct = async function() {
             let editId = document.getElementById('edit-prod-id').value;
             let name = document.getElementById('new-prod-name').value.trim();
             let cat = document.getElementById('new-prod-cat').value.trim();
@@ -394,10 +394,10 @@
                     try {
                         if (editId) {
                             await window.updateDoc(window.doc(window.db, "products", editId), { name, category: cat, img: base64Image });
-                            alert("Product updated successfully!");
+                            alert("Product updated live successfully!");
                         } else {
                             await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: base64Image });
-                            alert("Product added successfully!");
+                            alert("Product saved live to cloud successfully!");
                         }
                         resetProductForm();
                     } catch (err) {
@@ -411,10 +411,10 @@
                         let existing = cachedProducts.find(item => item.id === editId);
                         let imgToUse = existing ? existing.img : defaultImg;
                         await window.updateDoc(window.doc(window.db, "products", editId), { name, category: cat, img: imgToUse });
-                        alert("Product updated successfully!");
+                        alert("Product updated live successfully!");
                     } else {
                         await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: defaultImg });
-                        alert("Product added successfully!");
+                        alert("Product saved live to cloud successfully!");
                     }
                     resetProductForm();
                 } catch (err) {
@@ -423,10 +423,11 @@
             }
         }
 
-        async function deleteCloudProduct(id) {
-            if (confirm("Delete this product globally?")) {
+        window.deleteCloudProduct = async function(id) {
+            if (confirm("Delete this product globally across all devices?")) {
                 try {
                     await window.deleteDoc(window.doc(window.db, "products", id));
+                    alert("Product deleted successfully!");
                 } catch (e) {
                     alert("Error deleting: " + e.message);
                 }
@@ -440,8 +441,8 @@
             document.getElementById('edit-bank-id').value = b.id;
             document.getElementById('bank-title').value = b.title;
             document.getElementById('bank-acc').value = b.acc;
-            document.getElementById('bank-form-title').innerText = "✏️ Edit Bank Account";
-            document.getElementById('bank-save-btn').innerText = "Update Bank";
+            document.getElementById('bank-form-title').innerText = "✏️ Edit Live Bank Account";
+            document.getElementById('bank-save-btn').innerText = "Update Live Bank";
             document.getElementById('bank-cancel-btn').classList.remove('hidden');
             window.scrollTo({ top: 300, behavior: 'smooth' });
         }
@@ -451,11 +452,11 @@
             document.getElementById('bank-title').value = '';
             document.getElementById('bank-acc').value = '';
             document.getElementById('bank-form-title').innerText = "🏦 Add Bank Account";
-            document.getElementById('bank-save-btn').innerText = "Save Bank";
+            document.getElementById('bank-save-btn').innerText = "Save Live Bank";
             document.getElementById('bank-cancel-btn').classList.add('hidden');
         }
 
-        async function saveCloudBank() {
+        window.saveCloudBank = async function() {
             let editId = document.getElementById('edit-bank-id').value;
             let title = document.getElementById('bank-title').value.trim();
             let acc = document.getElementById('bank-acc').value.trim();
@@ -463,10 +464,10 @@
             try {
                 if(editId) {
                     await window.updateDoc(window.doc(window.db, "bankAccounts", editId), { title, acc });
-                    alert("Bank account updated successfully!");
+                    alert("Bank account updated live successfully!");
                 } else {
                     await window.addDoc(window.collection(window.db, "bankAccounts"), { title, acc });
-                    alert("Bank account saved successfully!");
+                    alert("Bank account saved live successfully!");
                 }
                 resetBankForm();
             } catch (e) {
@@ -474,10 +475,11 @@
             }
         }
 
-        async function deleteCloudBank(id) {
-            if(confirm("Remove this bank account?")) {
+        window.deleteCloudBank = async function(id) {
+            if(confirm("Remove this bank account globally?")) {
                 try {
                     await window.deleteDoc(window.doc(window.db, "bankAccounts", id));
+                    alert("Bank account deleted successfully!");
                 } catch (e) {
                     alert("Error: " + e.message);
                 }
