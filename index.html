@@ -58,9 +58,9 @@
     <!-- LEFT SIDEBAR FIXED SOCIAL BUTTONS -->
     <div class="left-social-bar">
         <a href="https://wa.me/923167407408" target="_blank" class="left-social-btn wa" title="WhatsApp Direct"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://facebook.com" target="_blank" class="left-social-btn fb" title="Facebook Page"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://tiktok.com" target="_blank" class="left-social-btn tt" title="TikTok Profile"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://instagram.com" target="_blank" class="left-social-btn ig" title="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/1AEK27M8cE/" target="_blank" class="left-social-btn fb" title="Facebook Page"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://tiktok.com/@nooradvertisingagency" target="_blank" class="left-social-btn tt" title="TikTok Profile"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/nooradvertisingagencypk?rpxt=MWk3MXg1emc4ajFvZg==" target="_blank" class="left-social-btn ig" title="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
     </div>
 
     <!-- Header Navigation -->
@@ -79,6 +79,7 @@
             <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-700">
                 <button onclick="switchTab('home')" id="btn-home" class="tab-btn text-blue-600 transition-colors">Home</button>
                 <button onclick="switchTab('categories')" id="btn-categories" class="tab-btn hover:text-blue-600 transition-colors">Categories</button>
+                <button onclick="switchTab('articles')" id="btn-articles" class="tab-btn hover:text-blue-600 transition-colors">Articles & Guides</button>
                 <button onclick="switchTab('about')" id="btn-about" class="tab-btn hover:text-blue-600 transition-colors">About Us</button>
                 <button onclick="switchTab('contact')" id="btn-contact" class="tab-btn hover:text-blue-600 transition-colors">Contact</button>
             </nav>
@@ -164,6 +165,17 @@
             <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </div>
 
+        <!-- ARTICLES & BUYING GUIDES TAB -->
+        <div id="articles" class="tab-content">
+            <div class="mb-8 text-center">
+                <h2 class="text-3xl font-black text-blue-900 mb-2">Articles & Buying Guides</h2>
+                <p class="text-gray-600 text-sm">Expert tips and guides for selecting the best home appliances.</p>
+            </div>
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <p class="text-gray-400 text-sm">Loading articles...</p>
+            </div>
+        </div>
+
         <!-- ABOUT US TAB -->
         <div id="about" class="tab-content">
             <div class="max-w-3xl mx-auto bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
@@ -187,10 +199,10 @@
                 <!-- Social Media Links -->
                 <div class="pt-4 border-t border-blue-800">
                     <p class="text-xs text-blue-200 mb-4 font-bold uppercase tracking-wider">Follow Us On Social Media</p>
-                    <div class="flex justify-center gap-4">
-                        <a href="https://facebook.com" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
-                        <a href="https://tiktok.com" target="_blank" class="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all border border-gray-700"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
-                        <a href="https://instagram.com" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <a href="https://www.facebook.com/share/1AEK27M8cE/" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
+                        <a href="https://tiktok.com/@nooradvertisingagency" target="_blank" class="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all border border-gray-700"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
+                        <a href="https://www.instagram.com/nooradvertisingagencypk?rpxt=MWk3MXg1emc4ajFvZg==" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
                     </div>
                 </div>
             </div>
@@ -198,8 +210,8 @@
 
         <!-- ADMIN PANEL TAB (Protected by PIN 7866) -->
         <div id="admin-panel" class="tab-content">
-            <div class="max-w-4xl mx-auto bg-white border border-blue-200 rounded-3xl p-8 shadow-2xl">
-                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+            <div class="max-w-4xl mx-auto bg-white border border-blue-200 rounded-3xl p-8 shadow-2xl space-y-8">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-4">
                     <div>
                         <h2 class="text-2xl font-black text-blue-900">🔒 Live Cloud Admin Dashboard</h2>
                         <p class="text-xs text-gray-500">Changes will instantly save and sync globally in real-time via Firebase Firestore.</p>
@@ -257,16 +269,44 @@
                     </div>
                 </div>
 
+                <!-- Add / Edit Articles & Buying Guides Section -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-4">
+                    <h3 id="article-form-title" class="text-lg font-bold text-blue-900">📰 Add / Edit Article & Buying Guide</h3>
+                    <input type="hidden" id="edit-article-id">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Article Title</label>
+                        <input type="text" id="article-title" placeholder="e.g. How to Choose the Best Room Heater" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Article Content / Guide</label>
+                        <textarea id="article-content" rows="3" placeholder="Write full guide or tips here..." class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"></textarea>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="saveCloudArticle()" id="article-save-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">
+                            Save Article
+                        </button>
+                        <button onclick="resetArticleForm()" id="article-cancel-btn" class="hidden bg-gray-400 text-white font-bold px-4 py-2.5 rounded-xl text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Manage Existing Cloud Products -->
-                <div class="mt-8 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                     <h3 class="text-lg font-bold text-blue-900 mb-4">📦 Manage Live Cloud Products (Edit / Delete)</h3>
                     <div id="admin-products-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
                 </div>
 
                 <!-- Manage Existing Bank Accounts -->
-                <div class="mt-8 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                     <h3 class="text-lg font-bold text-blue-900 mb-4">💳 Manage Live Bank Accounts (Edit / Delete)</h3>
                     <div id="bank-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
+                </div>
+
+                <!-- Manage Existing Articles -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4">📰 Manage Live Articles & Guides (Edit / Delete)</h3>
+                    <div id="articles-list" class="space-y-3 max-h-60 overflow-y-auto"></div>
                 </div>
             </div>
         </div>
@@ -276,10 +316,10 @@
     <!-- Footer with Social Links -->
     <footer class="bg-blue-950 text-white py-12 mt-16 text-center">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-center gap-6 mb-6">
-                <a href="https://facebook.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
-                <a href="https://tiktok.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
-                <a href="https://instagram.com" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
+            <div class="flex justify-center gap-6 mb-6 flex-wrap">
+                <a href="https://www.facebook.com/share/1AEK27M8cE/" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-facebook-f mr-1"></i> Facebook</a>
+                <a href="https://tiktok.com/@nooradvertisingagency" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-tiktok mr-1"></i> TikTok</a>
+                <a href="https://www.instagram.com/nooradvertisingagencypk?rpxt=MWk3MXg1emc4ajFvZg==" target="_blank" class="text-blue-400 hover:text-white font-bold text-sm transition-colors"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
             </div>
             <p class="text-xs text-gray-400">&copy; 2026 NOOR Home Appliances. Real-Time Cloud Synced.</p>
         </div>
@@ -336,11 +376,28 @@
             }
         ];
 
+        const initialDefaultArticles = [
+            {
+                title: "How to Choose the Best Room Heater for Winter",
+                content: "When selecting a room heater, consider the room size, power consumption, and safety features like automatic shut-off and tip-over protection."
+            },
+            {
+                title: "Guide to Buying AC/DC Air Coolers",
+                content: "AC/DC air coolers are energy efficient and ideal for Pakistani summers, supporting both solar power and regular electricity."
+            }
+        ];
+
         async function checkAndSeedDefaults() {
             const snap = await getDocs(collection(db, "products"));
             if (snap.empty) {
                 for (let prod of initialDefaultProducts) {
                     await addDoc(collection(db, "products"), prod);
+                }
+            }
+            const artSnap = await getDocs(collection(db, "articles"));
+            if (artSnap.empty) {
+                for (let art of initialDefaultArticles) {
+                    await addDoc(collection(db, "articles"), art);
                 }
             }
         }
@@ -362,6 +419,14 @@
             window.renderLiveBanks(banks);
         });
 
+        onSnapshot(collection(db, "articles"), (snapshot) => {
+            let articles = [];
+            snapshot.forEach((docSnap) => {
+                articles.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            window.renderLiveArticles(articles);
+        });
+
         window.db = db;
         window.collection = collection;
         window.addDoc = addDoc;
@@ -374,6 +439,7 @@
     <script>
         let cachedProducts = [];
         let cachedBanks = [];
+        let cachedArticles = [];
 
         window.renderLiveProducts = function(products) {
             cachedProducts = products;
@@ -382,7 +448,7 @@
             const catGrid = document.getElementById('categories-grid');
 
             if (!products || products.length === 0) {
-                grid.innerHTML = '<p class="text-gray-400 text-sm">No products found in cloud database. Add via Admin panel.</p>';
+                grid.innerHTML = '<p class="text-gray-400 text-sm">No products found in cloud database.</p>';
                 adminList.innerHTML = '<p class="text-xs text-gray-500">No products available.</p>';
                 catGrid.innerHTML = '<p class="text-xs text-gray-500">No categories available.</p>';
                 return;
@@ -448,6 +514,38 @@
                 </div>`;
             });
             list.innerHTML = html;
+        }
+
+        window.renderLiveArticles = function(articles) {
+            cachedArticles = articles;
+            const grid = document.getElementById('articles-grid');
+            const adminList = document.getElementById('articles-list');
+            if(!grid) return;
+
+            if(!articles || articles.length === 0) {
+                grid.innerHTML = '<p class="text-gray-400 text-sm">No articles published yet.</p>';
+                if(adminList) adminList.innerHTML = '<p class="text-xs text-gray-500">No articles available.</p>';
+                return;
+            }
+
+            let html = '', adminHtml = '';
+            articles.forEach(a => {
+                html += `<div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm space-y-2">
+                    <h3 class="font-bold text-lg text-blue-900">${a.title}</h3>
+                    <p class="text-sm text-gray-600 whitespace-pre-line">${a.content}</p>
+                </div>`;
+
+                adminHtml += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-200 text-xs">
+                    <div><p class="font-bold text-blue-900">${a.title}</p></div>
+                    <div class="flex gap-2">
+                        <button onclick="editArticle('${a.id}')" class="bg-amber-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-amber-600">Edit</button>
+                        <button onclick="deleteCloudArticle('${a.id}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-red-600">Delete</button>
+                    </div>
+                </div>`;
+            });
+
+            grid.innerHTML = html;
+            if(adminList) adminList.innerHTML = adminHtml;
         }
 
         function openAdminPanel() {
@@ -586,6 +684,57 @@
                 try {
                     await window.deleteDoc(window.doc(window.db, "bankAccounts", id));
                     alert("Bank account deleted successfully!");
+                } catch (e) {
+                    alert("Error: " + e.message);
+                }
+            }
+        }
+
+        window.editArticle = function(id) {
+            let a = cachedArticles.find(item => item.id === id);
+            if(!a) return;
+            document.getElementById('edit-article-id').value = a.id;
+            document.getElementById('article-title').value = a.title;
+            document.getElementById('article-content').value = a.content;
+            document.getElementById('article-form-title').innerText = "✏️ Edit Article & Buying Guide";
+            document.getElementById('article-save-btn').innerText = "Update Article";
+            document.getElementById('article-cancel-btn').classList.remove('hidden');
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        window.resetArticleForm = function() {
+            document.getElementById('edit-article-id').value = '';
+            document.getElementById('article-title').value = '';
+            document.getElementById('article-content').value = '';
+            document.getElementById('article-form-title').innerText = "📰 Add / Edit Article & Buying Guide";
+            document.getElementById('article-save-btn').innerText = "Save Article";
+            document.getElementById('article-cancel-btn').classList.add('hidden');
+        }
+
+        window.saveCloudArticle = async function() {
+            let editId = document.getElementById('edit-article-id').value;
+            let title = document.getElementById('article-title').value.trim();
+            let content = document.getElementById('article-content').value.trim();
+            if (!title || !content) { alert("Please enter article title and content!"); return; }
+            try {
+                if(editId) {
+                    await window.updateDoc(window.doc(window.db, "articles", editId), { title, content });
+                    alert("Article updated successfully!");
+                } else {
+                    await window.addDoc(window.collection(window.db, "articles"), { title, content });
+                    alert("Article published successfully!");
+                }
+                resetArticleForm();
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        }
+
+        window.deleteCloudArticle = async function(id) {
+            if(confirm("Delete this article?")) {
+                try {
+                    await window.deleteDoc(window.doc(window.db, "articles", id));
+                    alert("Article deleted successfully!");
                 } catch (e) {
                     alert("Error: " + e.message);
                 }
