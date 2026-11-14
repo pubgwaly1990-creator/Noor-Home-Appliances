@@ -16,6 +16,25 @@
             0% { width: 0px; height: 0px; opacity: 1; }
             100% { width: 80px; height: 80px; opacity: 0; }
         }
+
+        /* ELECTRIC NEON GLOW ANIMATION */
+        @keyframes electricGlow {
+            0% {
+                text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 40px #2563eb, 0 0 80px #2563eb;
+                color: #ffffff;
+            }
+            50% {
+                text-shadow: 0 0 2px #60a5fa, 0 0 5px #60a5fa, 0 0 10px #3b82f6, 0 0 20px #1d4ed8;
+                color: #93c5fd;
+            }
+            100% {
+                text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 40px #2563eb, 0 0 80px #2563eb;
+                color: #ffffff;
+            }
+        }
+        .electric-text {
+            animation: electricGlow 1.5s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
@@ -83,8 +102,26 @@
                         </a>
                     </div>
                 </div>
-                <div class="bg-blue-50/50 rounded-2xl overflow-hidden border border-blue-100 shadow-inner">
-                    <img src="https://scontent.flhe4-1.fna.fbcdn.net/v/t39.30808-6/784798172_122103840201453828_6906395798773396747_n.jpg?w=800" alt="Showroom" class="w-full h-72 object-cover">
+
+                <!-- ELECTRIC EFFECT SHOWROOM BOX WITH MOVING TEXT -->
+                <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl overflow-hidden border-2 border-blue-500 shadow-2xl h-72 flex flex-col items-center justify-center relative p-6 text-center">
+                    <!-- Background Glow Overlay -->
+                    <div class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px]"></div>
+                    
+                    <div class="relative z-10 space-y-3">
+                        <span class="text-[10px] font-black text-blue-400 tracking-[0.3em] uppercase block">DASKA • SIALKOT • PAKISTAN</span>
+                        <div class="overflow-hidden py-2">
+                            <h3 class="text-3xl sm:text-4xl font-black tracking-wider uppercase electric-text">
+                                NOOR Home Appliances
+                            </h3>
+                        </div>
+                        <p class="text-xs text-blue-200 font-semibold tracking-wide">Serving All Over Pakistan[cite: 8]</p>
+                        <div class="pt-2">
+                            <span class="inline-block bg-blue-600/30 border border-blue-400/50 text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full animate-pulse">
+                                ⚡ Live Online Store Active
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -236,41 +273,39 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // DEFAULT INITIAL PRODUCTS TO SEED IF CLOUD IS EMPTY
         const initialDefaultProducts = [
             {
                 name: "Electric Heaters",
                 category: "Comfort and Warmth for Winter",
-                img: "https://scontent.flhe4-1.fna.fbcdn.net/v/t39.30808-6/784798172_122103840201453828_6906395798773396747_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80"
             },
             {
                 name: "Stoves (Electric & Gas)",
                 category: "Practical Cooking Solutions",
-                img: "https://scontent.flhe4-2.fna.fbcdn.net/v/t39.30808-6/835450298_122117783043453828_6740141769735035799_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80"
             },
             {
                 name: "AC/DC Air Coolers",
                 category: "Cooling Solutions for Your Home",
-                img: "https://scontent.flhe4-2.fna.fbcdn.net/v/t39.30808-6/825336686_122115797283453828_7746808965484645874_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80"
             },
             {
                 name: "AC/DC Fans",
                 category: "Everyday Cooling and Comfort",
-                img: "https://scontent.flhe4-2.fna.fbcdn.net/v/t39.30808-6/835450298_122117783043453828_6740141769735035799_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
             },
             {
                 name: "Geysers (Electric & Gas)",
                 category: "Hot Water Solutions",
-                img: "https://scontent.flhe4-1.fna.fbcdn.net/v/t39.30808-6/784798172_122103840201453828_6906395798773396747_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80"
             },
             {
                 name: "Washing Machines",
                 category: "Make Laundry Easier",
-                img: "https://scontent.flhe4-2.fna.fbcdn.net/v/t39.30808-6/825336686_122115797283453828_7746808965484645874_n.jpg?w=800"
+                img: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80"
             }
         ];
 
-        // CHECK & AUTO-SEED IF EMPTY ON FIRST LOAD
         async function checkAndSeedDefaults() {
             const snap = await getDocs(collection(db, "products"));
             if (snap.empty) {
@@ -281,7 +316,6 @@
         }
         checkAndSeedDefaults();
 
-        // REAL-TIME CLOUD LISTENER FOR PRODUCTS
         onSnapshot(collection(db, "products"), (snapshot) => {
             let products = [];
             snapshot.forEach((docSnap) => {
@@ -290,7 +324,6 @@
             window.renderLiveProducts(products);
         });
 
-        // REAL-TIME CLOUD LISTENER FOR BANKS
         onSnapshot(collection(db, "bankAccounts"), (snapshot) => {
             let banks = [];
             snapshot.forEach((docSnap) => {
@@ -396,7 +429,6 @@
             }
         }
 
-        // --- PRODUCT CRUD OPERATIONS ---
         window.editProduct = function(id) {
             let p = cachedProducts.find(item => item.id === id);
             if(!p) return;
@@ -430,7 +462,7 @@
                 return;
             }
 
-            let defaultImg = "https://scontent.flhe4-1.fna.fbcdn.net/v/t39.30808-6/784798172_122103840201453828_6906395798773396747_n.jpg?w=800";
+            let defaultImg = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
 
             if (fileInput.files && fileInput.files[0]) {
                 let reader = new FileReader();
@@ -479,7 +511,6 @@
             }
         }
 
-        // --- BANK ACCOUNTS CRUD OPERATIONS ---
         window.editBank = function(id) {
             let b = cachedBanks.find(item => item.id === id);
             if(!b) return;
