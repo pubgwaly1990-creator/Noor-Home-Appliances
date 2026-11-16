@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOOR Home Appliances — Live Cloud Synced Store</title>
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-    tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    <style>
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
         .click-circle {
             position: absolute; width: 20px; height: 20px; border: 2px solid #2563eb; border-radius: 50%;
@@ -441,6 +442,21 @@
         let cachedBanks = [];
         let cachedArticles = [];
 
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.openAdminPanel = function() {
+            let pin = prompt("Enter Admin PIN:");
+            if(pin === "7866") {
+                window.switchTab('admin-panel');
+            } else if(pin !== null) {
+                alert("Incorrect PIN! Correct PIN is 7866.");
+            }
+        };
+
         window.renderLiveProducts = function(products) {
             cachedProducts = products;
             const grid = document.getElementById('product-grid');
@@ -524,49 +540,73 @@
 
             if(!articles || articles.length === 0) {
                 grid.innerHTML = '<p class="text-gray-400 text-sm">No articles published yet.</p>';
-                if(adminList) adminList.innerHTML = '<p class="text-xs text-gray-500">No articles available.</p>';
+                adminList.innerHTML = '<p class="text-xs text-gray-500">No articles available.</p>';
                 return;
             }
 
             let html = '', adminHtml = '';
             articles.forEach(a => {
-                html += `<div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm space-y-2">
-                    <h3 class="font-bold text-lg text-blue-900">${a.title}</h3>
-                    <p class="text-sm text-gray-600 whitespace-pre-line">${a.content}</p>
+                html += `<div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-lg text-blue-900 mb-2">${a.title}</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">${a.content}</p>
                 </div>`;
 
                 adminHtml += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-200 text-xs">
-                    <div><p class="font-bold text-blue-900">${a.title}</p></div>
+                    <div><p class="font-bold text-blue-900">${a.title}</p><p class="text-gray-500 truncate max-w-xs">${a.content}</p></div>
                     <div class="flex gap-2">
                         <button onclick="editArticle('${a.id}')" class="bg-amber-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-amber-600">Edit</button>
                         <button onclick="deleteCloudArticle('${a.id}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-red-600">Delete</button>
                     </div>
                 </div>`;
             });
-
             grid.innerHTML = html;
-            if(adminList) adminList.innerHTML = adminHtml;
+            adminList.innerHTML = adminHtml;
         }
 
-        function openAdminPanel() {
-            let pin = prompt("Enter Admin PIN Code:");
-            if (pin === "7866") {
-                switchTab('admin-panel');
-            } else if (pin !== null) {
-                alert("Incorrect PIN! Access Denied.");
+        // Product CRUD
+        window.saveCloudProduct = async function() {
+            const name = document.getElementById('new-prod-name').value.trim();
+            const cat = document.getElementById('new-prod-cat').value.trim();
+            const fileInput = document.getElementById('new-prod-file');
+            const editId = document.getElementById('edit-prod-id').value;
+
+            if(!name) { alert("Please enter product name"); return; }
+
+            let imgUrl = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
+            if(fileInput.files && fileInput.files[0]) {
+                imgUrl = await new Promise((resolve) => {
+                    let reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(fileInput.files[0]);
+                });
+            } else if(editId) {
+                let existing = cachedProducts.find(p => p.id === editId);
+                if(existing) imgUrl = existing.img;
+            }
+
+            try {
+                if(editId) {
+                    await window.updateDoc(window.doc(window.db, "products", editId), { name, category: cat, img: imgUrl });
+                    alert("Product updated successfully!");
+                } else {
+                    await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: imgUrl });
+                    alert("Product added successfully!");
+                }
+                window.resetProductForm();
+            } catch(e) {
+                alert("Error saving product: " + e.message);
             }
         }
 
         window.editProduct = function(id) {
-            let p = cachedProducts.find(item => item.id === id);
+            let p = cachedProducts.find(x => x.id === id);
             if(!p) return;
             document.getElementById('edit-prod-id').value = p.id;
             document.getElementById('new-prod-name').value = p.name;
-            document.getElementById('new-prod-cat').value = p.category;
+            document.getElementById('new-prod-cat').value = p.category || '';
             document.getElementById('product-form-title').innerText = "✏️ Edit Live Product";
-            document.getElementById('prod-save-btn').innerText = "Update Live Product";
+            document.getElementById('prod-save-btn').innerText = "Update Product";
             document.getElementById('prod-cancel-btn').classList.remove('hidden');
-            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
         window.resetProductForm = function() {
@@ -579,76 +619,35 @@
             document.getElementById('prod-cancel-btn').classList.add('hidden');
         }
 
-        window.saveCloudProduct = async function() {
-            let editId = document.getElementById('edit-prod-id').value;
-            let name = document.getElementById('new-prod-name').value.trim();
-            let cat = document.getElementById('new-prod-cat').value.trim();
-            let fileInput = document.getElementById('new-prod-file');
-
-            if (!name || !cat) {
-                alert("Please enter product name and category!");
-                return;
-            }
-
-            let defaultImg = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80";
-
-            if (fileInput.files && fileInput.files[0]) {
-                let reader = new FileReader();
-                reader.onload = async function(e) {
-                    let base64Image = e.target.result;
-                    try {
-                        if (editId) {
-                            await window.updateDoc(window.doc(window.db, "products", editId), { name, category: cat, img: base64Image });
-                            alert("Product updated live successfully!");
-                        } else {
-                            await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: base64Image });
-                            alert("Product saved live to cloud successfully!");
-                        }
-                        resetProductForm();
-                    } catch (err) {
-                        alert("Error: " + err.message);
-                    }
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                try {
-                    if (editId) {
-                        let existing = cachedProducts.find(item => item.id === editId);
-                        let imgToUse = existing ? existing.img : defaultImg;
-                        await window.updateDoc(window.doc(window.db, "products", editId), { name, category: cat, img: imgToUse });
-                        alert("Product updated live successfully!");
-                    } else {
-                        await window.addDoc(window.collection(window.db, "products"), { name, category: cat, img: defaultImg });
-                        alert("Product saved live to cloud successfully!");
-                    }
-                    resetProductForm();
-                } catch (err) {
-                    alert("Error: " + err.message);
-                }
+        window.deleteCloudProduct = async function(id) {
+            if(confirm("Delete this product permanently?")) {
+                await window.deleteDoc(window.doc(window.db, "products", id));
             }
         }
 
-        window.deleteCloudProduct = async function(id) {
-            if (confirm("Delete this product globally across all devices?")) {
-                try {
-                    await window.deleteDoc(window.doc(window.db, "products", id));
-                    alert("Product deleted successfully!");
-                } catch (e) {
-                    alert("Error deleting: " + e.message);
-                }
+        // Bank CRUD
+        window.saveCloudBank = async function() {
+            const title = document.getElementById('bank-title').value.trim();
+            const acc = document.getElementById('bank-acc').value.trim();
+            const editId = document.getElementById('edit-bank-id').value;
+            if(!title || !acc) { alert("Fill all fields"); return; }
+            if(editId) {
+                await window.updateDoc(window.doc(window.db, "bankAccounts", editId), { title, acc });
+            } else {
+                await window.addDoc(window.collection(window.db, "bankAccounts"), { title, acc });
             }
+            window.resetBankForm();
         }
 
         window.editBank = function(id) {
-            let b = cachedBanks.find(item => item.id === id);
+            let b = cachedBanks.find(x => x.id === id);
             if(!b) return;
             document.getElementById('edit-bank-id').value = b.id;
             document.getElementById('bank-title').value = b.title;
             document.getElementById('bank-acc').value = b.acc;
-            document.getElementById('bank-form-title').innerText = "✏️ Edit Live Bank Account";
-            document.getElementById('bank-save-btn').innerText = "Update Live Bank";
+            document.getElementById('bank-form-title').innerText = "✏️ Edit Bank Account";
+            document.getElementById('bank-save-btn').innerText = "Update Bank";
             document.getElementById('bank-cancel-btn').classList.remove('hidden');
-            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
         window.resetBankForm = function() {
@@ -660,46 +659,33 @@
             document.getElementById('bank-cancel-btn').classList.add('hidden');
         }
 
-        window.saveCloudBank = async function() {
-            let editId = document.getElementById('edit-bank-id').value;
-            let title = document.getElementById('bank-title').value.trim();
-            let acc = document.getElementById('bank-acc').value.trim();
-            if (!title || !acc) { alert("Enter bank details!"); return; }
-            try {
-                if(editId) {
-                    await window.updateDoc(window.doc(window.db, "bankAccounts", editId), { title, acc });
-                    alert("Bank account updated successfully!");
-                } else {
-                    await window.addDoc(window.collection(window.db, "bankAccounts"), { title, acc });
-                    alert("Bank account saved successfully!");
-                }
-                resetBankForm();
-            } catch (e) {
-                alert("Error: " + e.message);
-            }
+        window.deleteCloudBank = async function(id) {
+            if(confirm("Delete bank?")) await window.deleteDoc(window.doc(window.db, "bankAccounts", id));
         }
 
-        window.deleteCloudBank = async function(id) {
-            if(confirm("Remove this bank account globally?")) {
-                try {
-                    await window.deleteDoc(window.doc(window.db, "bankAccounts", id));
-                    alert("Bank account deleted successfully!");
-                } catch (e) {
-                    alert("Error: " + e.message);
-                }
+        // Article CRUD
+        window.saveCloudArticle = async function() {
+            const title = document.getElementById('article-title').value.trim();
+            const content = document.getElementById('article-content').value.trim();
+            const editId = document.getElementById('edit-article-id').value;
+            if(!title || !content) { alert("Fill all fields"); return; }
+            if(editId) {
+                await window.updateDoc(window.doc(window.db, "articles", editId), { title, content });
+            } else {
+                await window.addDoc(window.collection(window.db, "articles"), { title, content });
             }
+            window.resetArticleForm();
         }
 
         window.editArticle = function(id) {
-            let a = cachedArticles.find(item => item.id === id);
+            let a = cachedArticles.find(x => x.id === id);
             if(!a) return;
             document.getElementById('edit-article-id').value = a.id;
             document.getElementById('article-title').value = a.title;
             document.getElementById('article-content').value = a.content;
-            document.getElementById('article-form-title').innerText = "✏️ Edit Article & Buying Guide";
+            document.getElementById('article-form-title').innerText = "✏️ Edit Article";
             document.getElementById('article-save-btn').innerText = "Update Article";
             document.getElementById('article-cancel-btn').classList.remove('hidden');
-            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
         window.resetArticleForm = function() {
@@ -711,52 +697,15 @@
             document.getElementById('article-cancel-btn').classList.add('hidden');
         }
 
-        window.saveCloudArticle = async function() {
-            let editId = document.getElementById('edit-article-id').value;
-            let title = document.getElementById('article-title').value.trim();
-            let content = document.getElementById('article-content').value.trim();
-            if (!title || !content) { alert("Please enter article title and content!"); return; }
-            try {
-                if(editId) {
-                    await window.updateDoc(window.doc(window.db, "articles", editId), { title, content });
-                    alert("Article updated successfully!");
-                } else {
-                    await window.addDoc(window.collection(window.db, "articles"), { title, content });
-                    alert("Article published successfully!");
-                }
-                resetArticleForm();
-            } catch (e) {
-                alert("Error: " + e.message);
-            }
-        }
-
         window.deleteCloudArticle = async function(id) {
-            if(confirm("Delete this article?")) {
-                try {
-                    await window.deleteDoc(window.doc(window.db, "articles", id));
-                    alert("Article deleted successfully!");
-                } catch (e) {
-                    alert("Error: " + e.message);
-                }
-            }
+            if(confirm("Delete article?")) await window.deleteDoc(window.doc(window.db, "articles", id));
         }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('text-blue-600'));
-            document.getElementById(tabId).classList.add('active');
-            const activeBtn = document.getElementById('btn-' + tabId);
-            if(activeBtn) activeBtn.classList.add('text-blue-600');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.addEventListener('click', function(e) {
-            const circle = document.createElement('div');
-            circle.className = 'click-circle';
-            circle.style.left = e.pageX + 'px';
-            circle.style.top = e.pageY + 'px';
-            document.body.appendChild(circle);
-            setTimeout(() => { circle.remove(); }, 600);
+        // Click Circle Animation
+        window.addEventListener('click', e => {
+            const c = document.createElement('div');
+            c.className = 'click-circle'; c.style.left = `${e.pageX}px`; c.style.top = `${e.pageY}px`;
+            document.body.appendChild(c); setTimeout(() => c.remove(), 600);
         });
     </script>
 </body>
